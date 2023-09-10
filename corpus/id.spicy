@@ -1,0 +1,5 @@
+module id;
+
+global x= 1;
+
+id::x;

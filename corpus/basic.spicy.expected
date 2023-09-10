@@ -1,0 +1,52 @@
+module foo;
+
+import spicy;
+import spicy;
+
+global x = 1;
+local y = 1;
+{
+    local z = spicy::zlib_init(-15); # Negative for deflating raw data, 15 maximum window size.
+}
+
+x == y; # A.
+x != y; # B.
+
+1; # 1.
+2;
+-3;
++1;
+
+[i for i in [1, 2, 3, 4, 5]];
+
+const c = 42;
+
+1;
+assert True;
+assert-exception 1;
+
+True ? 1 : 2;
+
+a += "";
+a -= "";
+a *= "";
+a /= "";
+
+"%s" % a;
+
+!1;
+1 && 1;
+1 || 1;
+
+1 + 1;
+1 - 1;
+1 * 1;
+1 / 1;
+
+1 > 1;
+1 < 1;
+1 >= 1;
+1 <= 1;
+
+*spicy::getenv("FOO");
+*spicy::getenv("FOO");

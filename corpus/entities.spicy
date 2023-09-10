@@ -1,0 +1,7 @@
+module x;
+
+
+public type X = unit {
+};
+
+public type E = enum {  };

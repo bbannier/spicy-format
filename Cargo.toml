@@ -1,0 +1,19 @@
+[package]
+name = "spicy-format"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tree-sitter-spicy = { git = "https://github.com/bbannier/tree-sitter-spicy" }
+topiary = { git = "https://github.com/tweag/topiary.git", version = "0.2.3" }
+tokio = { version = "1.32.0", features = ["io-std", "rt-multi-thread", "process", "macros"], default-features = false }
+tree-sitter-facade = { git = "https://github.com/tweag/tree-sitter-facade" }
+clap = { version = "4.4.2", features = ["std", "derive", "help"], default-features = false }
+tree-sitter = "0.20.10"
+thiserror = "1.0.48"
+miette = { version = "5.10.0", features = ["fancy"] }
+
+[dev-dependencies]
+pretty_assertions = "1.4.0"

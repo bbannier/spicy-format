@@ -1,0 +1,70 @@
+type Z = unit {
+    var a: uint8;
+};
+type Y = unit {};
+public type X = unit {
+    # This is a foo.
+    ax: bytes {}
+    xs: bytes &eod { print $$; }
+    ys: bytes &eod; # The ys.
+    zs: bytes %debug {}
+
+    on zs %debug {}
+
+    on %done { print self; }
+};
+
+type Z = unit {
+    sink s;
+    on %init { self.s.connect_filter(new Z); }
+};
+
+type X = unit {
+    a: uint8;
+
+    switch {
+        -> : b"" { a; }
+        -> : b""; # foo
+        -> : b"" {
+            a;
+            a;
+        }
+    };
+};
+
+type X = unit {
+    on %init {}
+    b: uint8 { print $$; }
+    c: bytes &size=1;
+};
+
+type X = unit {};
+
+type X = unit {
+    : uint8 if (True);
+};
+
+public type X = unit {
+    switch (1 + 1) {
+        1 -> a: b"1";
+        * -> : void;
+    };
+};
+
+type X = unit {};
+
+type X = unit(x: X) {};
+
+type X = unit {
+    var x: uint64 &optional;
+    on %init { unset self.x; }
+};
+
+type X = unit {
+    x: uint8;
+    on x priority = 100 {}
+};
+
+type X = unit {
+    : skip /a/;
+};

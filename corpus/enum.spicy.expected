@@ -1,0 +1,16 @@
+public type E = enum {
+    A, # A.
+    B,
+    C,
+};
+
+type Priv11 = enum {
+    A,
+    B,
+    C,
+};
+type Priv12 = enum {
+    A,
+    B,
+    C,
+};

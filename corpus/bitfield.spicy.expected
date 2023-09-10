@@ -1,0 +1,8 @@
+module foo;
+
+type X = unit {
+    x: bitfield(8) {
+        a: 0..1; # foo
+        b: 0..8; # bar
+    };
+};
