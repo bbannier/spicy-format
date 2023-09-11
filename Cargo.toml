@@ -8,7 +8,6 @@ edition = "2021"
 [dependencies]
 tree-sitter-spicy = { git = "https://github.com/bbannier/tree-sitter-spicy" }
 topiary = { git = "https://github.com/tweag/topiary.git", version = "0.2.3" }
-tokio = { version = "1.32.0", features = ["io-std", "rt-multi-thread", "process", "macros"], default-features = false }
 tree-sitter-facade = { git = "https://github.com/tweag/tree-sitter-facade" }
 clap = { version = "4.4.2", features = ["std", "derive", "help"], default-features = false }
 tree-sitter = "0.20.10"

@@ -31,8 +31,7 @@ enum Error {
     Io(#[from] std::io::Error),
 }
 
-#[tokio::main]
-async fn main() -> Result<()> {
+fn main() -> Result<()> {
     let args = Args::parse();
 
     miette::set_hook(Box::new(|_| {
