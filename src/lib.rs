@@ -1,3 +1,6 @@
+#![allow(clippy::missing_errors_doc)]
+#![allow(clippy::missing_panics_doc)]
+
 use {
     miette::Diagnostic,
     miette::{Result, SourceOffset, SourceSpan},

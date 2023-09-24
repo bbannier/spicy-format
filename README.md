@@ -1,5 +1,4 @@
-spicy-format
-============
+# spicy-format
 
 This provides a formatter for the [Spicy
 language](https://docs.zeek.org/projects/spicy/en/latest/).
@@ -7,8 +6,7 @@ language](https://docs.zeek.org/projects/spicy/en/latest/).
 ⚠ The implementation is very much a work in progress at the moment, and should
 be considered **alpha quality**.
 
-Development
------------
+## Development
 
 This formatter is implemented in Rust with
 [Topiary](https://github.com/tweag/topiary). It uses
