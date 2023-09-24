@@ -275,6 +275,12 @@
   (statement (block)*@do_nothing) @append_indent_end
 )
 
+(while
+  "while" @prepend_space
+  "(" @prepend_space
+  ")" @append_space
+)
+
 (list_comp
   "for" @prepend_space @append_space
   "in" @prepend_space @append_space
