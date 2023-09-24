@@ -34,6 +34,26 @@ pub enum FormatError {
 
 const QUERY: &str = include_str!("query.scm");
 
+/// Format Spicy source code.
+///
+/// # Arguments
+///
+/// - `input`: Spicy source code to format
+/// - `tolerate_parsing_errors`: whether source code with syntax errors should be accepted or
+///   rejected.
+/// - `skip_idempotence`: skip check that AST of formatted source is identical to input. This is
+///   intended for working around current formatter limitations.
+///
+/// # Examples
+///
+/// ```
+/// # use spicy_format::format;
+/// let source = "global   x  : count=42 ;";
+/// assert_eq!(
+///     format(source, false, false).unwrap(),
+///     "global x: count = 42;"
+/// );
+/// ```
 pub fn format(
     input: &str,
     skip_idempotence: bool,
@@ -64,12 +84,7 @@ pub fn format(
         },
     ) {
         Err(match e {
-            FormatterError::Query(message, error) => {
-                if let Some(err) = error {
-                    dbg!(err);
-                }
-                FormatError::Query(message)
-            }
+            FormatterError::Query(message, _) => FormatError::Query(message),
             FormatterError::Idempotence => FormatError::Idempotency,
             FormatterError::Parsing {
                 start_line,
@@ -102,7 +117,16 @@ pub fn format(
         })?;
     };
 
-    Ok(String::from_utf8(output).map_err(FormatError::UTF8)?)
+    let output = String::from_utf8(output).map_err(FormatError::UTF8)?;
+
+    // Final cleanup of result. If we received an input not ending in a newline, also return an
+    // output without newline. We do not want to force a newline since we e.g., could be formatting
+    // input received from an editor and do not want to insert additional newlines.
+    if input.ends_with('\n') {
+        Ok(output)
+    } else {
+        Ok(output.trim_end().into())
+    }
 }
 
 #[cfg(test)]
@@ -161,6 +185,15 @@ mod test {
             }
         }
 
+        Ok(())
+    }
+
+    #[test]
+    fn no_trailing_newline() -> Result<()> {
+        assert_eq!(
+            format("global   x  : count=42 ;", false, false).unwrap(),
+            "global x: count = 42;"
+        );
         Ok(())
     }
 }
