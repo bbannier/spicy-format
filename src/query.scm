@@ -31,6 +31,7 @@
   (hook_decl)
   (sink_decl)
   (unit_switch
+    "switch" @append_space
    (unit_switch_case) @append_hardline
    .
    (comment)? @do_nothing
@@ -38,6 +39,18 @@
  ] @append_hardline
   .
   (comment)? @do_nothing
+)
+
+(switch
+  "switch" @append_space
+  "(" (expression) ")" @append_space
+  "{" @append_indent_start
+
+  (case
+    "case" @append_space
+    ":" @append_indent_start
+    )* @prepend_indent_end @append_spaced_softline
+  "}" @prepend_indent_end
 )
 
 (
@@ -78,7 +91,6 @@
  "const"
  "for"
  "foreach"
- "switch"
  "in"
  "->"
  "="

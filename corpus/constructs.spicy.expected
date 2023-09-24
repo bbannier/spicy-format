@@ -12,4 +12,13 @@ for (i in [1, 2, 3]) {
 for (i in [1, 2, 3])
     print i;
 
+switch (1) {
+    case 1: "a";
+    case 2:
+        # Comment.
+        "b";
+    case 3, 4:
+        "c";
+}
+
 throw "yikes";
