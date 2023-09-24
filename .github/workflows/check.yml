@@ -1,0 +1,56 @@
+name: Check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+env:
+  CARGO_INCREMENTAL: 0
+  RUSTFLAGS: -D warnings
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          override: true
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: pre-commit-cargo-${{ hashFiles('Cargo.lock') }}
+      - name: Install tree-sitter-cli
+        run: |
+          npm install -g tree-sitter-cli
+      - name: Test
+        uses: actions-rs/cargo@v1
+        with:
+          command: test
+
+  pre-commit:
+    name: Run pre-commit hooks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          override: true
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: pre-commit-cargo-${{ hashFiles('Cargo.lock') }}
+      - name: Install tree-sitter-cli
+        run: |
+          npm install -g tree-sitter-cli
+      - uses: actions/setup-python@v2
+      - uses: pre-commit/action@v3.0.0
