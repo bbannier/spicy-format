@@ -201,6 +201,8 @@
 
 (statement (_) ";" @prepend_antispace)
 
+(throw_ "throw" @append_space)
+
 (list
  "," @append_spaced_softline
 )
