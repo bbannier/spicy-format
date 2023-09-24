@@ -19,8 +19,8 @@ pub enum FormatError {
         err_span: SourceSpan,
     },
 
-    #[error("query error")]
-    Query(String),
+    #[error("internal query error")]
+    Query(#[help] String),
 
     #[error("idempotency violated")]
     Idempotency,
@@ -70,7 +70,13 @@ pub fn format(
 
     let grammar = tree_sitter_facade::Language::from(tree_sitter_spicy::language_spicy());
 
-    let query = TopiaryQuery::new(&grammar, QUERY).unwrap();
+    let query = TopiaryQuery::new(&grammar, QUERY).map_err(|e| match e {
+        FormatterError::Query(m, e) => FormatError::Query(match e {
+            None => m,
+            Some(e) => format!("{m}: {e}"),
+        }),
+        _ => FormatError::Unknown,
+    })?;
 
     if let Err(e) = topiary::formatter(
         &mut input.as_bytes(),
@@ -84,7 +90,10 @@ pub fn format(
         },
     ) {
         Err(match e {
-            FormatterError::Query(message, _) => FormatError::Query(message),
+            FormatterError::Query(m, e) => FormatError::Query(match e {
+                None => m,
+                Some(e) => format!("{m}: {e}"),
+            }),
             FormatterError::Idempotence => FormatError::Idempotency,
             FormatterError::Parsing {
                 start_line,
