@@ -36,6 +36,9 @@ case 6: { "e"; }
 
 switch (local x = 1) {
 case 1: {}
+# Foo
+case 2: {}
+case 3: {}
 }
 
 throw   "yikes" ;

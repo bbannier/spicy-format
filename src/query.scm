@@ -57,7 +57,10 @@
 (switch
   "switch" @append_space
   "(" (expression) ")" @append_space
-  (case "case" @append_space)* @append_spaced_softline
+  [
+    (case "case" @append_space)
+    (comment)
+  ]* @append_spaced_softline
 )
 
 (case
