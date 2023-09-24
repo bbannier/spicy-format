@@ -16,3 +16,9 @@ miette = { version = "5.10.0", default-features = false, features = ["fancy"] }
 
 [dev-dependencies]
 pretty_assertions = "1.4.0"
+
+[profile.release]
+panic = "abort"
+strip = true
+codegen-units = 1
+lto = "thin"
