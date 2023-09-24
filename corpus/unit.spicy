@@ -67,3 +67,7 @@ type X = unit {
 type X = unit {
     : skip /a/;
 };
+
+type X = unit {
+    xs: uint8[] foreach { print $$; }
+};

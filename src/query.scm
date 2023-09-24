@@ -18,6 +18,9 @@
   (comment)? @do_nothing
 )
 
+(import "import" @append_space)
+(module_decl "module" @append_space)
+
 ; If we have anything (e.g., comments) before the initial module decl, preserve empty lines after it.
 (
   (_)
@@ -39,6 +42,9 @@
  ] @append_hardline
   .
   (comment)? @do_nothing
+)
+(unit_switch_case
+  "->" @prepend_space @append_space
 )
 
 (switch
@@ -73,36 +79,15 @@
 )
 
 [
- "import"
- "module"
- "public"
  "type"
  "enum"
  "unit"
- "unset"
- "sink"
- "var"
- "print"
  "on"
- "function"
- "return"
- "global"
- "local"
- "const"
- "for"
- "foreach"
- "in"
- "->"
  "="
- "+="
- "-="
- "*="
- "/="
  (inout)
  (is_debug)
  "if"
  (hook_priority)
- "skip"
 ] @append_space @prepend_space
 
 (binary_op
@@ -123,6 +108,12 @@
    "||"
   ] @prepend_space @append_space
   (_)
+)
+
+(assign
+  (expression) @append_space
+  ; This automatically inserts spaces around the operator.
+  (expression) @prepend_space
 )
 
 ; Disambiguate negative numbers.
@@ -168,6 +159,8 @@
  (sink_decl)
 ] @append_input_softline
 
+(visibility) @append_space
+
 (comment) @prepend_input_softline @append_input_softline @append_hardline
 
 (attribute) @prepend_space
@@ -189,6 +182,8 @@
  (comment)? @do_nothing
 )
 
+(function_decl "function" @append_space)
+
 (
  [
   (var_decl)
@@ -196,6 +191,12 @@
  .
  (comment)? @do_nothing
 )
+
+(var_decl
+  (linkage) @append_space
+)
+
+(sink_decl "sink" @append_space)
 
 (statement) @prepend_input_softline
 
@@ -213,7 +214,10 @@
 
 (statement (_) ";" @prepend_antispace)
 
+(print "print" @append_space)
+(return "return" @append_space)
 (throw_ "throw" @append_space)
+(unset "unset" @append_space)
 
 (list
  "," @append_spaced_softline
@@ -246,9 +250,24 @@
 )
 
 (for
+  "for" @prepend_space
+  "(" @prepend_space
+  (_) @append_space
+  "in" @append_space
+  (_)
+  ")" @append_space
+)
+(for
   ")" @append_indent_start
   (statement (block)*@do_nothing) @append_indent_end
 )
+
+(list_comp
+  "for" @prepend_space @append_space
+  "in" @prepend_space @append_space
+)
+
+(foreach "foreach" @prepend_space @append_space)
 
 (function_call
   (ident)
@@ -260,7 +279,8 @@
 
 ; Suppress space before field `;` decl with `if.
 (field_decl
-  (if (statement ";") @prepend_antispace)
+  "skip"? @append_space
+  (if (statement ";") @prepend_antispace)?
 )
 
 (
