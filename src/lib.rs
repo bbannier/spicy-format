@@ -32,7 +32,7 @@ pub enum FormatError {
     Unknown,
 }
 
-const QUERY: &'static str = include_str!("query.scm");
+const QUERY: &str = include_str!("query.scm");
 
 pub fn format(
     input: &str,
