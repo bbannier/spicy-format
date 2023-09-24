@@ -13,7 +13,10 @@
 ] @leaf
 
 (
-  (module_decl) @append_hardline
+  [
+    (module_decl)
+    (import)
+  ] @append_hardline
   .
   (comment)? @do_nothing
 )
@@ -150,7 +153,6 @@
 [
  (enum_decl)
  (type_decl)
- (import)
 ]
  @append_hardline
 

@@ -1,7 +1,7 @@
 module foo;
 
 import spicy;
-import spicy;
+import spicy; # With comment.
 
 global x=1;
 local y=1;
