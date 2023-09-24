@@ -72,3 +72,13 @@ type X = unit {
 type X = unit {
     xs: uint8[] foreach { print $$; }
 };
+
+type X = unit {
+    switch (1) {
+        # Foo.
+        1 -> : uint8 &parse-from=b"";
+        1 -> : uint8 &parse-from=b"";
+    };
+
+    # Bar.
+};

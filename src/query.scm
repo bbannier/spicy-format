@@ -36,13 +36,17 @@
   (field_decl)
   (hook_decl)
   (sink_decl)
-  (unit_switch
-    "switch" @append_space
-   (unit_switch_case) @append_hardline
-   .
-   (comment)? @do_nothing
-  )
+  (unit_switch)
  ] @append_hardline
+  .
+  (comment)? @do_nothing
+)
+
+(unit_switch
+  "switch" @append_space
+)
+(unit_switch
+  (unit_switch_case) @append_hardline
   .
   (comment)? @do_nothing
 )
