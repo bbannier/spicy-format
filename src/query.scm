@@ -57,13 +57,20 @@
 (switch
   "switch" @append_space
   "(" (expression) ")" @append_space
-  "{" @append_indent_start
+  (case "case" @append_space)* @append_spaced_softline
+)
 
-  (case
-    "case" @append_space
-    ":" @append_indent_start
-    )* @prepend_indent_end @append_spaced_softline
-  "}" @prepend_indent_end
+(case
+  ":" @append_indent_start
+  (comment)*
+  ; We only match statements with a single expression here since statements
+  ; with blocks do their own indention.
+  (statement (expression)) @append_indent_end
+)
+
+; Switch with local binding.
+(switch
+  (linkage) @append_space
 )
 
 (

@@ -25,6 +25,14 @@ switch (1) {
         "b";
     case 3, 4:
         "c";
+    case 5: {
+        "d";
+    }
+    case 6: { "e"; }
+}
+
+switch (local x = 1) {
+    case 1: {}
 }
 
 throw "yikes";
