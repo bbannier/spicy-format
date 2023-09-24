@@ -269,6 +269,13 @@
   "in" @prepend_space @append_space
 )
 
+(contains
+  "in" @prepend_space @append_space
+)
+(contains_not
+  "!in" @prepend_space @append_space
+)
+
 (foreach "foreach" @prepend_space @append_space)
 
 (function_call
