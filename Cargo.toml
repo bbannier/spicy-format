@@ -17,6 +17,9 @@ miette = { version = "5.10.0", default-features = false, features = ["fancy"] }
 [dev-dependencies]
 pretty_assertions = "1.4.0"
 
+[build-dependencies]
+vergen = { version = "8.2.5", default-features = false, features = ["git", "gitcl"] }
+
 [profile.release]
 panic = "abort"
 strip = true

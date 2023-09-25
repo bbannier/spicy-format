@@ -8,6 +8,7 @@ use {
 };
 
 #[derive(Parser)]
+#[clap(version = option_env!("VERGEN_GIT_SHA"))]
 struct Args {
     #[clap(
         help = "input file to operate on",
