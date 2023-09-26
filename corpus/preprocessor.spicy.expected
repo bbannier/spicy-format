@@ -1,0 +1,41 @@
+# Preprocessor macros with varying contents.
+
+@if 1
+# foo
+@else
+@endif
+
+@if 1
+1;
+2;
+@else
+2;
+@endif
+
+@if !1
+1;
+@endif
+
+@if 1 == 1
+1;
+@endif
+
+# FIXME(bbannier): Empty lines in bodies are currently not removed.
+@if
+
+@else
+
+@endif
+
+# We allow constructs like `import` in preprocessor macros.
+@if 1
+import foo;
+@endif
+
+# We allow field declarations in preprocessor macros.
+type X = unit {
+    # FIXME(bbannier): preprocessor macros inherit indention, we might not want to do that.
+    @if 1
+    : bytes &size=1;
+    @endif
+};

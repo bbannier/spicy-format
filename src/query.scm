@@ -317,3 +317,28 @@
  (_)
  "{" @prepend_space
 )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Preprocessor macros
+
+; Empty lines before preprocessor blocks are fine.
+(preproc) @allow_blank_line_before
+
+; `@if` always has a following expression so it needs a space.
+(preproc "@if" @append_space)
+
+; Newline handling. This is slightly nasty since preprocessor macros are
+; terminated by explicit newlines instead of `;`. Force a newline, but delete
+; original newlines so we do not insert stray empty lines or spaces.
+(preproc
+  "@if" (expression) @append_hardline
+  "\n" @delete
+)
+(preproc
+  "@else" @append_hardline
+  "\n" @delete
+)
+(preproc
+  "@endif" @prepend_hardline
+)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
