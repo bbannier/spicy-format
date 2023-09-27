@@ -159,47 +159,62 @@ mod test {
 
         let update_baseline = std::env::var("UPDATE_BASELINE").is_ok();
 
-        for test in std::fs::read_dir(corpus).expect("cannot enumerate corpus") {
-            let test = test.expect("cannot list corpus entry {:?}");
+        let files = walkdir::WalkDir::new(&corpus)
+            .into_iter()
+            .filter_map(|e| {
+                let e = e.ok()?;
 
-            // Exclude baselines.
-            if test.path().extension().and_then(|ext| ext.to_str()) == Some("expected") {
-                continue;
-            }
+                if e.file_type().is_file()
+                    && e.path().extension().and_then(|ext| ext.to_str()) == Some("spicy")
+                {
+                    Some(e)
+                } else {
+                    None
+                }
+            })
+            .collect::<Vec<_>>();
 
-            eprintln!("parsing {}", test.path().display());
+        files
+            .par_iter()
+            .filter_map(|t| {
+                let input = std::fs::read_to_string(t.path()).ok()?;
 
-            let input = std::fs::read_to_string(test.path())
-                .expect(&format!("cannot read file {}", test.path().display()));
+                let output = {
+                    let path = t.path().to_path_buf();
 
-            let output = {
-                let path = test.path();
+                    let file_name = format!(
+                        "{}.expected",
+                        path.file_name()
+                            .expect(&format!(
+                                "cannot get filename component of {}",
+                                path.display()
+                            ))
+                            .to_string_lossy()
+                    );
 
-                let file_name = format!(
-                    "{}.expected",
-                    path.file_name()
-                        .expect(&format!(
-                            "cannot get filename component of {}",
-                            path.display()
-                        ))
-                        .to_string_lossy()
-                );
+                    let mut o = path;
+                    assert!(o.pop());
 
-                let mut o = path;
-                assert!(o.pop());
+                    o.join(file_name)
+                };
 
-                o.join(file_name)
-            };
+                let formatted = format(&input, false, true).expect("cannot format source file");
 
-            let formatted = format(&input, false, true).expect("cannot format source file");
+                if !update_baseline {
+                    let expected = std::fs::read_to_string(output).expect("cannot read baseline");
+                    assert_eq!(
+                        expected,
+                        formatted,
+                        "while formatting {}",
+                        t.path().display()
+                    );
+                } else {
+                    std::fs::write(output, formatted).expect("cannot update baseline");
+                }
 
-            if !update_baseline {
-                let expected = std::fs::read_to_string(output).expect("cannot read baseline");
-                assert_eq!(expected, formatted);
-            } else {
-                std::fs::write(output, formatted).expect("cannot update baseline");
-            }
-        }
+                Some(1)
+            })
+            .collect::<Vec<_>>();
 
         Ok(())
     }
