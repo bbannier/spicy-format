@@ -73,6 +73,15 @@ type X = unit {
 
 type X = unit {
     xs: uint8[] foreach { print $$; }
+    xs: uint8[] foreach { $$; } { $$; }
+    xs: uint8[] foreach {
+        print $$;
+    } { print $$; }
+    xs: uint8[] foreach {
+        print $$;
+    } {
+        print $$;
+    }
 };
 
 type X = unit {
