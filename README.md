@@ -26,5 +26,20 @@ cargo t
 For each `corpus/<INPUT>.spicy` the repository contains a matching expected
 result baseline `corpus/<INPUT>.spicy.expected`. To update the baselines
 execute the test harness with the environment variable `UPDATE_BASELINE` set.
+
+```console
+UPDATE_BASELINE=1 cargo t
+```
+
 This will update or if needed create the outdated baselines. When adding new
 tests to the corpus, commit the baseline as well.
+
+To run formatting against an external corpus run the test suite with
+`SPICY_FORMAT_EXTERNAL_CORPUS` set.
+
+```console
+SPICY_FORMAT_EXTERNAL_CORPUS=<PATH TO SPICY CORPUS> cargo t corpus_external
+```
+
+The suite automatically filters a filters out of some tests in the Spicy test
+suite with known unsupported constructs.
