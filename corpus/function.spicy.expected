@@ -26,3 +26,7 @@ spicy::strftime(
     "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX %A %c",
     time(0)
 );
+
+# Map ctor.
+map(1: b"");
+map<uint8, bytes>(1: b"");
