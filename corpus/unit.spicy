@@ -54,6 +54,8 @@ type X = unit () {};
 
 type X = unit (x: X) {};
 
+type FOO = unit { x: uint8; };
+
 type X = unit {
     var x: uint64 &optional;
     on %init { unset self.x;}

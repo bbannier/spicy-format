@@ -37,7 +37,7 @@
   (hook_decl)
   (sink_decl)
   (unit_switch)
- ] @append_hardline
+ ] @append_empty_softline
   .
   (comment)? @do_nothing
 )
