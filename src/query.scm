@@ -10,6 +10,8 @@
  (attribute_name)
  (ident)
  (integer)
+ (address4)
+ (address6)
 ] @leaf
 
 (
