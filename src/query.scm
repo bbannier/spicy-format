@@ -143,7 +143,10 @@
 
 (optional)@prepend_space
 
-(assert (_)@prepend_space)
+(assert
+  (_) @prepend_space
+  (":" @prepend_space @append_space (_))?
+)
 
 [
  ":"

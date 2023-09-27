@@ -24,6 +24,7 @@ const c = 42;
 1;
 assert True;
 assert-exception 1;
+assert True: "foo";
 
 True ? 1 : 2;
 
