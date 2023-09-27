@@ -316,6 +316,11 @@
   "skip"? @append_space
   (if (statement ";") @prepend_antispace)?
 )
+; Enforce spaces around `->` in field sink syntax.
+(field_decl
+  "->" @prepend_space @append_space
+  (sink)
+)
 
 (
  "bitfield"

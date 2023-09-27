@@ -93,3 +93,9 @@ type X = unit {
 
     # Bar.
 };
+
+# Sink syntax.
+public type X = unit {
+    : bytes &eod -> self.data;
+    sink data;
+};
