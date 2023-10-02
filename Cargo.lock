@@ -949,8 +949,8 @@ dependencies = [
 
 [[package]]
 name = "topiary"
-version = "0.2.3"
-source = "git+https://github.com/tweag/topiary.git#8299a04bf83c4a2774cbbff7a036c022efa939b3"
+version = "0.3.0"
+source = "git+https://github.com/tweag/topiary.git#2d171e110f0e7bfbf1caf1d4de6c5bbe362a33ae"
 dependencies = [
  "clap",
  "futures",
