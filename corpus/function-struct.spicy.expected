@@ -1,0 +1,11 @@
+# This formatted strangely, include a separate test.
+module X;
+
+function f(): uint32 {
+    return 42;
+}
+
+type Shape = struct {
+    height: uint8;
+    width: uint8;
+};
