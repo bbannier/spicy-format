@@ -235,7 +235,7 @@ mod test {
         };
 
         let is_filtered = |p: &Path| -> bool {
-            let deny_list = ["tools/preprocessor.spicy"];
+            let deny_list = ["tools/preprocessor.spicy", "types/unit/hooks-fail.spicy"];
 
             deny_list.iter().any(|b| p.ends_with(b))
         };
