@@ -49,5 +49,8 @@ a /= "";
 1 >= 1;
 1 <= 1;
 
+1 & 1;
+1 | 1;
+
 *spicy::getenv("FOO");
 *spicy::getenv("FOO");
