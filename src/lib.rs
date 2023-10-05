@@ -61,13 +61,14 @@ pub fn format(
     input: &str,
     skip_idempotence: bool,
     tolerate_parsing_errors: bool,
+    indent: String
 ) -> Result<String> {
     let mut output = Vec::new();
     let language = {
         topiary::Language {
             name: "spicy".to_string(),
             extensions: vec!["spicy".to_string()].into_iter().collect(),
-            indent: Some("    ".to_string()),
+            indent: Some(indent),
         }
     };
 

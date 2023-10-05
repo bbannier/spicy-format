@@ -24,6 +24,9 @@ struct Args {
 
     #[clap(long, short, help = "format file in place")]
     inplace: bool,
+
+    #[clap(long, help = "spaces to use for one level of indentation", default_value = "4")]
+    indent: usize,
 }
 
 #[derive(Error, Debug, Diagnostic)]
@@ -61,7 +64,7 @@ fn main() -> Result<()> {
     };
 
     let formatted =
-        format(&input, args.skip_idempotence, !args.reject_parse_errors).wrap_err(format!(
+        format(&input, args.skip_idempotence, !args.reject_parse_errors, " ".repeat(args.indent)).wrap_err(format!(
             "while formatting '{}'",
             if let Some(i) = &args.input_file {
                 i.display().to_string()
