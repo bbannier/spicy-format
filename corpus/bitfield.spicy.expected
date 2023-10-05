@@ -12,3 +12,18 @@ type X = bitfield(8) {
     b: 4..7;
     c: 7 = 1;
 };
+
+type X = unit {
+    : bitfield(8) {
+        a: 0..1;
+        b: 0..7;
+    } &bit-order=spicy::BitOrder::MSB0;
+    : bitfield(8) {
+        c: 0..1;
+        d: 0..7;
+    };
+    : bitfield(8) {
+        e: 0..1;
+        f: 0..7;
+    };
+};

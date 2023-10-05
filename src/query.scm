@@ -329,6 +329,7 @@
  "bitfield"
  (_)
  "{" @prepend_space
+ "}" @prepend_hardline
 )
 
 ; All bitfield fields go on a new line.
