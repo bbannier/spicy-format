@@ -322,14 +322,22 @@
   (sink)
 )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Bitfields.
+
 (
  "bitfield"
  (_)
  "{" @prepend_space
 )
 
+; All bitfield fields go on a new line.
+(bitfield
+  (bitfield_field) @prepend_hardline
+)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Preprocessor macros
+; Preprocessor macros.
 
 ; Empty lines before preprocessor blocks are fine.
 (preproc) @allow_blank_line_before

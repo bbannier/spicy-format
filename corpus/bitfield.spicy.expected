@@ -6,3 +6,9 @@ type X = unit {
         b: 0..8; # bar
     };
 };
+
+type X = bitfield(8) {
+    a: 0..3 = 2;
+    b: 4..7;
+    c: 7 = 1;
+};
