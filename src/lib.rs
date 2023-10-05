@@ -235,7 +235,12 @@ mod test {
         };
 
         let is_filtered = |p: &Path| -> bool {
-            let deny_list = ["tools/preprocessor.spicy", "types/unit/hooks-fail.spicy"];
+            let deny_list = [
+                "tools/preprocessor.spicy",
+                "types/unit/hooks-fail.spicy",
+                // Fails due to parser ambiguity due to https://github.com/zeek/spicy/issues/1566.
+                "types/unit/switch-attributes-fail.spicy",
+            ];
 
             deny_list.iter().any(|b| p.ends_with(b))
         };
