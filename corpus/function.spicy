@@ -27,3 +27,6 @@ time(0));
 # Map ctor.
 map(1: b"");
 map<uint8, bytes>(1: b"");
+
+function f() {}
+function f() {}

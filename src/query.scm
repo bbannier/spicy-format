@@ -44,6 +44,14 @@
   (comment)? @do_nothing
 )
 
+("struct"
+ (field_decl) @append_empty_softline
+  .
+  (comment)? @do_nothing
+)
+
+(struct_decl "struct" @append_space)
+
 (unit_switch
   "switch" @append_space
 )
@@ -161,6 +169,7 @@
  (type_decl)
  (field_decl)
  (unit_switch)
+ (struct_decl)
  (sink_decl)
  (hook_decl)
  (function_decl)
@@ -174,6 +183,8 @@
 [
  (enum_decl)
  (type_decl)
+ (function_decl)
+ (struct_decl)
 ]
  @append_hardline
 
