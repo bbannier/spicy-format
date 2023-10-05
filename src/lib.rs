@@ -61,7 +61,7 @@ pub fn format(
     input: &str,
     skip_idempotence: bool,
     tolerate_parsing_errors: bool,
-    indent: String
+    indent: String,
 ) -> Result<String> {
     let mut output = Vec::new();
     let language = {
