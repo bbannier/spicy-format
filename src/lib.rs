@@ -53,7 +53,7 @@ const QUERY: &str = include_str!("query.scm");
 /// # use spicy_format::format;
 /// let source = "global   x  : count=42 ;";
 /// assert_eq!(
-///     format(source, false, false).unwrap(),
+///     format(source, false, false, "   ".to_string()).unwrap(),
 ///     "global x: count = 42;"
 /// );
 /// ```
@@ -199,7 +199,7 @@ mod test {
                     o.join(file_name)
                 };
 
-                let formatted = format(&input, false, true).expect("cannot format source file");
+                let formatted = format(&input, false, true, "    ".to_string()).expect("cannot format source file");
 
                 if !update_baseline {
                     let expected = std::fs::read_to_string(output).expect("cannot read baseline");
@@ -223,7 +223,7 @@ mod test {
     #[test]
     fn no_trailing_newline() -> Result<()> {
         assert_eq!(
-            format("global   x  : count=42 ;", false, false).unwrap(),
+            format("global   x  : count=42 ;", false, false, "    ".to_string()).unwrap(),
             "global x: count = 42;"
         );
         Ok(())
@@ -270,7 +270,7 @@ mod test {
                     return None;
                 }
 
-                match super::format(&source, false, false) {
+                match super::format(&source, false, false, "    ".to_string()) {
                     Err(_) => Some((f.to_string(), false)),
                     Ok(_) => Some((f.to_string(), true)),
                 }
