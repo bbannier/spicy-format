@@ -105,5 +105,5 @@ type X = unit {
     switch (1) {
         * -> : void;
         # We can currently only format if an attribute with value is in last place.
-    }&eod &until &size=1;
+    } &eod &until &size=1;
 };
