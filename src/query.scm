@@ -4,14 +4,11 @@
 (#language! json)
 (#indent! "    ")
 
-; It is currently impossible to format qualified identifiers, see
-; https://github.com/tweag/topiary/issues/418.
 [
- (attribute_name)
- (ident)
- (integer)
- (address4)
- (address6)
+  (attribute_name)
+  (integer)
+  (address4)
+  (address6)
 ] @leaf
 
 (
@@ -36,10 +33,15 @@
 ("unit"
  [
   (field_decl)
-  (hook_decl)
   (sink_decl)
   (unit_switch)
  ] @append_empty_softline
+  .
+  (comment)? @do_nothing
+)
+
+(
+  (hook_decl) @append_empty_softline
   .
   (comment)? @do_nothing
 )
