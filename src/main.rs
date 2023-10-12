@@ -11,10 +11,10 @@ use {
 #[clap(version = option_env!("VERGEN_GIT_SHA"))]
 struct Args {
     #[clap(
-        help = "input file to operate on",
-        long_help = "if not provided read the input from stdin"
+        help = "input files to operate on",
+        long_help = "if not provided read input from stdin"
     )]
-    input_file: Option<PathBuf>,
+    input_files: Vec<PathBuf>,
 
     #[clap(short, long, help = "skip idempotency check")]
     skip_idempotence: bool,
@@ -45,11 +45,12 @@ fn main() -> Result<()> {
         )
     }))?;
 
-    let input = if let Some(input_file) = &args.input_file {
-        std::fs::read_to_string(input_file)
-            .map_err(Error::Io)
-            .wrap_err(format!("while reading input file {}", input_file.display()))?
-    } else {
+    let format = |code: &str, source: &str| {
+        format(code, args.skip_idempotence, !args.reject_parse_errors)
+            .wrap_err(format!("while formatting '{source}'",))
+    };
+
+    if args.input_files.is_empty() {
         let stdin = std::io::stdin();
         let mut buf = String::new();
         stdin
@@ -57,32 +58,25 @@ fn main() -> Result<()> {
             .read_to_string(&mut buf)
             .map_err(Error::Io)
             .wrap_err("while reading input from stdin")?;
-        buf
-    };
-
-    let formatted =
-        format(&input, args.skip_idempotence, !args.reject_parse_errors).wrap_err(format!(
-            "while formatting '{}'",
-            if let Some(i) = &args.input_file {
-                i.display().to_string()
-            } else {
-                "<stdin>".to_string()
-            }
-        ))?;
-
-    if let Some(input_file) = &args.input_file {
-        if args.inplace {
-            std::fs::write(input_file, formatted)
-                .map_err(Error::Io)
-                .wrap_err(format!(
-                    "while writing output file {}",
-                    input_file.display()
-                ))?;
-        } else {
-            println!("{formatted}");
-        }
+        println!("{}", format(&buf, "<stdin>")?);
     } else {
-        println!("{formatted}");
+        for input_file in &args.input_files {
+            let source = std::fs::read_to_string(input_file)
+                .map_err(Error::Io)
+                .wrap_err(format!("while reading input file {}", input_file.display()))?;
+
+            let formatted = format(&source, &input_file.display().to_string())?;
+            if args.inplace {
+                std::fs::write(input_file, formatted)
+                    .map_err(Error::Io)
+                    .wrap_err(format!(
+                        "while writing output file {}",
+                        input_file.display()
+                    ))?;
+            } else {
+                println!("{formatted}");
+            }
+        }
     }
 
     Ok(())
