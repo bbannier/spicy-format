@@ -107,3 +107,10 @@ type X = unit {
         # We can currently only format if an attribute with value is in last place.
     } &eod &until &size=1;
 };
+
+# External hook implementation.
+on X::Y::%done {
+    1;
+    2;
+}
+on X::Y::%error {}
