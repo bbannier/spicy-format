@@ -178,6 +178,7 @@
  (var_decl)
  (enum_decl)
  (attribute)
+ (property)
  (statement)
  (import)
 ] @allow_blank_line_before
