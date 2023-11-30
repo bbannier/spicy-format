@@ -112,3 +112,7 @@ type X = unit {
 on X::Y::%done {1;2;
 }
 on X::Y::%error {}
+
+# Debug hooks.
+on X::Y::%done %debug {}
+on X::Y::%error (e: msg )%debug {}
