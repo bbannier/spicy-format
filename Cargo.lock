@@ -950,7 +950,7 @@ dependencies = [
 [[package]]
 name = "topiary"
 version = "0.3.0"
-source = "git+https://github.com/tweag/topiary.git#79b93527d9bd59533f9a79fe490567963193fafd"
+source = "git+https://github.com/tweag/topiary.git#8cc9aa40d99c89b448190bb1693777128fdcd6c0"
 dependencies = [
  "clap",
  "futures",
@@ -1055,7 +1055,7 @@ dependencies = [
 [[package]]
 name = "tree-sitter-rust"
 version = "0.20.4"
-source = "git+https://github.com/tree-sitter/tree-sitter-rust.git#48e053397b587de97790b055a1097b7c8a4ef846"
+source = "git+https://github.com/tree-sitter/tree-sitter-rust.git#79456e6080f50fc1ca7c21845794308fa5d35a51"
 dependencies = [
  "cc",
  "tree-sitter",
