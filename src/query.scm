@@ -329,7 +329,7 @@
 
 ; Suppress space before field `;` decl with `if.
 (field_decl
-  "skip"? @append_space
+  (is_skip)? @append_space
   (if (statement ";") @prepend_antispace)?
 )
 ; Enforce spaces around `->` in field sink syntax.
