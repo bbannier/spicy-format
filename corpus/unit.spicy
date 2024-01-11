@@ -89,6 +89,9 @@ type X = unit {
                                                   &parse-from=b"";
     1     -> :      uint8
                                                   &parse-from=b"";
+    2 -> {
+    a: uint8; : uint8; # anon.
+    }
   };
 
   # Bar.

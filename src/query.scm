@@ -52,6 +52,12 @@
   (comment)? @do_nothing
 )
 
+(unit_switch_case
+ (field_decl) @append_empty_softline
+  .
+  (comment)? @do_nothing
+)
+
 (struct_decl "struct" @append_space)
 
 (unit_switch
