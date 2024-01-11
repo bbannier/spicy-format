@@ -83,6 +83,10 @@ print $$;
 };
 
 type X = unit {
+    xs: X()[];
+};
+
+type X = unit {
   switch (1) {
     # Foo.
     1     -> : uint8
