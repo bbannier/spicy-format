@@ -5,7 +5,9 @@ function foo(x: uint64): int64 {
     print x;
 }
 
-function bar(x: uint64): uint64 { return x; }
+function bar(x: uint64): uint64 {
+    return x;
+}
 
 function f(x: uint64, inout y: int64) {
     f(1, 2);

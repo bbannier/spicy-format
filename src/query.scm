@@ -31,6 +31,12 @@
 )
 
 ("unit"
+ "{" @append_indent_start @append_hardline
+ (_)
+ "}" @prepend_indent_end @prepend_hardline
+)
+
+("unit"
  [
   (field_decl)
   (sink_decl)
@@ -50,6 +56,21 @@
  (field_decl) @append_empty_softline
   .
   (comment)? @do_nothing
+)
+("struct"
+ "{" @append_indent_start @append_hardline
+ (_)
+ "}" @prepend_indent_end @prepend_hardline
+)
+
+(unit_switch
+  "{" @append_indent_start @append_hardline
+  "}" @prepend_indent_end @prepend_hardline
+)
+
+(unit_switch_case
+  "{" @append_indent_start @append_hardline
+  "}" @prepend_indent_end @prepend_hardline
 )
 
 (unit_switch_case
@@ -80,6 +101,11 @@
     (comment)
   ]* @append_spaced_softline
 )
+(switch
+  "{" @append_indent_start @append_hardline
+  (_)
+  "}" @prepend_indent_end @prepend_hardline
+)
 
 (case
   ":" @append_indent_start
@@ -92,6 +118,12 @@
 ; Switch with local binding.
 (switch
   (linkage) @append_space
+)
+
+(enum_decl
+  "{" @append_indent_start @append_hardline
+  (_)
+  "}" @prepend_indent_end @prepend_hardline
 )
 
 (
@@ -209,14 +241,11 @@
 (attribute) @prepend_space
 (attribute (_) @append_antispace "=" @append_antispace (_))
 
-[(block)] @prepend_space
-
-("{") @append_spaced_softline @append_indent_start
-("}") @prepend_spaced_softline @prepend_indent_end
-(
- "{"
- .
- "}" @prepend_antispace
+(block) @prepend_space
+(block
+  "{" @append_indent_start @append_hardline
+  (_)
+  "}" @prepend_indent_end @prepend_hardline
 )
 
 (
@@ -288,9 +317,16 @@
 (unit_switch (expression) ")" @append_space)
 
 (if
+  "if" @prepend_space @append_space
   (expression) @append_indent_start
+  .
   (statement (block)*@do_nothing) @prepend_input_softline @append_indent_end
 )
+(if
+  "else" @prepend_space @append_space @append_indent_start
+  (statement (block)*@do_nothing) @prepend_hardline @append_indent_end
+)
+
 
 (for
   "for" @prepend_space
@@ -350,8 +386,8 @@
 (
  "bitfield"
  (_)
- "{" @prepend_space
- "}" @prepend_hardline
+ "{" @prepend_space @append_indent_start @append_hardline
+ "}" @prepend_indent_end @prepend_hardline
 )
 
 ; All bitfield fields go on a new line.

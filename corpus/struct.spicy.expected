@@ -18,4 +18,6 @@ type MoveCloser = struct {
     c: uint8;
 };
 
-type X = struct { x: uint8; };
+type X = struct {
+    x: uint8;
+};

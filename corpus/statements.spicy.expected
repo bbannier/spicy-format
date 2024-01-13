@@ -1,0 +1,16 @@
+function f() {
+    if (True)
+        1;
+    else
+        2;
+}
+
+function f() {
+    if (True)
+    {
+        1;
+    }
+    else {
+        2;
+    }
+}
