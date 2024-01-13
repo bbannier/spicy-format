@@ -273,16 +273,10 @@
 (statement) @prepend_input_softline
 
 (
- (
   (statement)
   .
   (comment)? @do_nothing
- ) @prepend_hardline @append_hardline
- .
- (
-  (statement) . (comment)? @do_nothing
- ) @append_hardline
-)
+) @append_hardline
 
 (statement (_) ";" @prepend_antispace)
 
@@ -317,14 +311,14 @@
 (unit_switch (expression) ")" @append_space)
 
 (if
-  "if" @prepend_space @append_space
+  "if"
   (expression) @append_indent_start
   .
-  (statement (block)*@do_nothing) @prepend_input_softline @append_indent_end
+  (statement (block)*@do_nothing) @prepend_hardline @append_indent_end
 )
 (if
-  "else" @prepend_space @append_space @append_indent_start
-  (statement (block)*@do_nothing) @prepend_hardline @append_indent_end
+  "else" @append_indent_start
+  (statement [(block) (if)]*@do_nothing) @prepend_hardline @append_indent_end
 )
 
 

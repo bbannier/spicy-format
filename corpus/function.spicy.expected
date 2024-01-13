@@ -17,7 +17,8 @@ function f(x: uint64, inout y: int64) {
 }
 
 function fib(n: int64): int64 {
-    if (n == 0 || n == 1) return n;
+    if (n == 0 || n == 1)
+        return n;
     local x = fib(n - 2) + fib(n - 1);
 
     foo(n); # YOLO.

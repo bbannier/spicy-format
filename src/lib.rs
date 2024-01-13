@@ -198,7 +198,10 @@ mod test {
                     o.join(file_name)
                 };
 
-                let formatted = format(&input, false, true).expect("cannot format source file");
+                let formatted = format(&input, false, true).expect(&format!(
+                    "cannot format source file {}",
+                    t.path().to_string_lossy()
+                ));
 
                 if !update_baseline {
                     let expected = std::fs::read_to_string(output).expect("cannot read baseline");
