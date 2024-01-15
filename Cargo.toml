@@ -20,7 +20,7 @@ rayon = "1.8.0"
 walkdir = "2.4.0"
 
 [build-dependencies]
-vergen = { version = "8.2.6", default-features = false, features = ["git", "gitcl"] }
+vergen = { version = "8.2.9", default-features = false, features = ["git", "gitcl"] }
 
 [profile.release]
 panic = "abort"
