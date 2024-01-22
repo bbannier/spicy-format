@@ -950,7 +950,7 @@ dependencies = [
 [[package]]
 name = "topiary"
 version = "0.3.0"
-source = "git+https://github.com/tweag/topiary.git#a45a1138c7cf373c56b211b7e767a32b30af0737"
+source = "git+https://github.com/tweag/topiary.git#015ae72dbadca3814608ce7fb7937904dd91d0a5"
 dependencies = [
  "clap",
  "futures",
@@ -989,7 +989,7 @@ dependencies = [
 [[package]]
 name = "tree-sitter-bash"
 version = "0.20.4"
-source = "git+https://github.com/tree-sitter/tree-sitter-bash#7331995b19b8f8aba2d5e26deb51d2195c18bc94"
+source = "git+https://github.com/tree-sitter/tree-sitter-bash#f7239f638d3dc16762563a9027faeee518ce1bd9"
 dependencies = [
  "cc",
  "tree-sitter",
