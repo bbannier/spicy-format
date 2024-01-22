@@ -16,7 +16,7 @@ miette = { version = "5.10.0", default-features = false, features = ["fancy"] }
 
 [dev-dependencies]
 pretty_assertions = "1.4.0"
-rayon = "1.8.0"
+rayon = "1.8.1"
 walkdir = "2.4.0"
 
 [build-dependencies]
