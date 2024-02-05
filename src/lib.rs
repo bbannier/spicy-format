@@ -6,7 +6,7 @@ use {
     miette::{Result, SourceOffset, SourceSpan},
     std::string::FromUtf8Error,
     thiserror::Error,
-    topiary::{FormatterError, TopiaryQuery},
+    topiary_core::{FormatterError, Operation, TopiaryQuery},
 };
 
 #[derive(Error, Debug, Diagnostic)]
@@ -63,15 +63,8 @@ pub fn format(
     tolerate_parsing_errors: bool,
 ) -> Result<String> {
     let mut output = Vec::new();
-    let language = {
-        topiary::Language {
-            name: "spicy".to_string(),
-            extensions: vec!["spicy".to_string()].into_iter().collect(),
-            indent: Some("    ".to_string()),
-        }
-    };
 
-    let grammar = tree_sitter_facade::Language::from(tree_sitter_spicy::language_spicy());
+    let grammar = topiary_tree_sitter_facade::Language::from(tree_sitter_spicy::language_spicy());
 
     let query = TopiaryQuery::new(&grammar, QUERY).map_err(|e| match e {
         FormatterError::Query(m, e) => FormatError::Query(match e {
@@ -81,13 +74,20 @@ pub fn format(
         _ => FormatError::Unknown,
     })?;
 
-    if let Err(e) = topiary::formatter(
+    let language = {
+        topiary_core::Language {
+            name: "spicy".to_string(),
+            indent: Some("    ".to_string()),
+            grammar,
+            query,
+        }
+    };
+
+    if let Err(e) = topiary_core::formatter(
         &mut input.as_bytes(),
         &mut output,
-        &query,
         &language,
-        &grammar,
-        topiary::Operation::Format {
+        Operation::Format {
             skip_idempotence,
             tolerate_parsing_errors,
         },

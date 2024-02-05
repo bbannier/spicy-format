@@ -8,7 +8,8 @@ license = "MIT"
 
 [dependencies]
 tree-sitter-spicy = { git = "https://github.com/bbannier/tree-sitter-spicy" }
-topiary = { git = "https://github.com/tweag/topiary.git", version = "0.3.0" }
+topiary-core = { git = "https://github.com/tweag/topiary.git", version = "0.3.0" }
+topiary-tree-sitter-facade = { git = "https://github.com/tweag/topiary.git", version = "0.3.0" }
 tree-sitter-facade = { git = "https://github.com/tweag/tree-sitter-facade" }
 clap = { version = "4.4.18", features = ["std", "derive", "help"], default-features = false }
 tree-sitter = "0.20.10"
