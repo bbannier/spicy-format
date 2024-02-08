@@ -151,11 +151,12 @@
  "unit"
  "on"
  "="
- (inout)
  (is_debug)
  "if"
  (hook_priority)
 ] @append_space @prepend_space
+
+(inout) @append_space
 
 (binary_op
   (_)

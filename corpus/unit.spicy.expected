@@ -50,6 +50,8 @@ type X = unit {
 
 type X = unit {};
 
+type X = unit(inout n: uint8) {};
+
 type X = unit {
     : uint8 if (True);
 };
