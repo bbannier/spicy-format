@@ -223,13 +223,17 @@
  (import)
 ] @allow_blank_line_before
 
-[
- (enum_decl)
- (type_decl)
- (function_decl)
- (struct_decl)
-]
- @append_hardline
+(
+  [
+   (enum_decl)
+   (type_decl)
+   (function_decl)
+   (struct_decl)
+  ]
+  @append_hardline
+  .
+  (comment)? @do_nothing
+)
 
 [
  (field_decl)
