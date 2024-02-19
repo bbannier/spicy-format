@@ -14,7 +14,7 @@ tree-sitter-facade = { git = "https://github.com/tweag/tree-sitter-facade" }
 clap = { version = "4.5.0", features = ["std", "derive", "help"], default-features = false }
 tree-sitter = "0.20.10"
 thiserror = "1.0.57"
-miette = { version = "7.0.0", default-features = false, features = ["derive", "fancy"] }
+miette = { version = "7.1.0", default-features = false, features = ["derive", "fancy"] }
 
 [dev-dependencies]
 pretty_assertions = "1.4.0"
