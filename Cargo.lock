@@ -918,10 +918,10 @@ dependencies = [
 [[package]]
 name = "tree-sitter-spicy"
 version = "0.1.0"
-source = "git+https://github.com/bbannier/tree-sitter-spicy#12bb477bbb1ddf96a46a8e59a8caf9287eadd3f3"
+source = "git+https://github.com/bbannier/tree-sitter-spicy#05d9ca75ce33029675170e333235b00ac73c84af"
 dependencies = [
  "cc",
- "tree-sitter 0.20.10",
+ "tree-sitter 0.21.0",
 ]
 
 [[package]]
