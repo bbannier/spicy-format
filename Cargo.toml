@@ -18,8 +18,8 @@ miette = { version = "7.1.0", default-features = false, features = ["derive", "f
 
 [dev-dependencies]
 pretty_assertions = "1.4.0"
-rayon = "1.8.1"
-walkdir = "2.4.0"
+rayon = "1.9.0"
+walkdir = "2.5.0"
 
 [build-dependencies]
 vergen = { version = "8.3.1", default-features = false, features = ["git", "gitcl"] }
