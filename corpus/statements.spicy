@@ -13,3 +13,5 @@ function f() {
     else if (False) {2;}
     else { 3; }
 }
+
+function f() { return; }

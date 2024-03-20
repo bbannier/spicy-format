@@ -288,7 +288,7 @@
 (statement (_) ";" @prepend_antispace)
 
 (print "print" @append_space)
-(return "return" @append_space)
+(return ("return" @append_space) (_))
 (throw_ "throw" @append_space)
 (unset "unset" @append_space)
 

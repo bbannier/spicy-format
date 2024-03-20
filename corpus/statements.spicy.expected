@@ -19,3 +19,7 @@ function f() {
         3;
     }
 }
+
+function f() {
+    return;
+}
