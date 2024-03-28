@@ -41,3 +41,5 @@ repos:
     hooks:
       - id: prettier
         stages: ["commit"]
+
+exclude: .github/workflows/release.yml
