@@ -4,7 +4,7 @@ This provides a formatter for the [Spicy
 language](https://docs.zeek.org/projects/spicy/en/latest/).
 
 ⚠ The implementation is very much a work in progress at the moment, and should
-be considered **alpha quality**.
+be considered **ALPHA QUALITY**.
 
 ## Development
 
@@ -41,5 +41,5 @@ To run formatting against an external corpus run the test suite with
 SPICY_FORMAT_EXTERNAL_CORPUS=<PATH TO SPICY CORPUS> cargo t corpus_external
 ```
 
-The suite automatically filters a filters out of some tests in the Spicy test
-suite with known unsupported constructs.
+The suite automatically filters out of some files in the Spicy test suite with
+known unsupported constructs.
