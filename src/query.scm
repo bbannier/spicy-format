@@ -203,6 +203,10 @@
   (":" @prepend_space @append_space (_))?
 )
 
+(delete
+  (_) @prepend_space
+)
+
 [
  ":"
 ] @append_space
