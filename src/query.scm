@@ -52,6 +52,13 @@
   (comment)? @do_nothing
 )
 
+(
+ hook_priority
+  "priority" @append_antispace
+  .
+  "=" @append_antispace
+)
+
 ("struct"
  (field_decl) @append_empty_softline
   .

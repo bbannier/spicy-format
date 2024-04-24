@@ -80,7 +80,7 @@ type X = unit {
 
 type X = unit {
     x: uint8;
-    on x priority = 100 {}
+    on x priority=100 {}
 };
 
 type X = unit {
