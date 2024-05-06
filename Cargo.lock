@@ -119,9 +119,9 @@ checksum = "a2bd12c1caf447e69cd4528f47f94d203fd2582878ecb9e9465484c4148a8223"
 
 [[package]]
 name = "cc"
-version = "1.0.94"
+version = "1.0.97"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "17f6e324229dc011159fcc089755d1e2e216a90d43a7dea6853ca740b84f35e7"
+checksum = "099a5357d84c4c61eb35fc8eafa9a79a902c2f76911e5747ced4e032edd8d9b4"
 
 [[package]]
 name = "cfg-if"
@@ -650,7 +650,7 @@ dependencies = [
  "thiserror",
  "topiary-core",
  "topiary-tree-sitter-facade",
- "tree-sitter 0.22.5",
+ "tree-sitter 0.22.6",
  "tree-sitter-facade",
  "tree-sitter-spicy",
  "vergen",
@@ -870,9 +870,9 @@ dependencies = [
 
 [[package]]
 name = "tree-sitter"
-version = "0.22.5"
+version = "0.22.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "688200d842c76dd88f9a7719ecb0483f79f5a766fb1c100756d5d8a059abc71b"
+checksum = "df7cc499ceadd4dcdf7ec6d4cbc34ece92c3fa07821e287aedecd4416c516dca"
 dependencies = [
  "cc",
  "regex",
