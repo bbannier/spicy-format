@@ -13,7 +13,7 @@ topiary-tree-sitter-facade = { git = "https://github.com/tweag/topiary.git", ver
 tree-sitter-facade = { git = "https://github.com/tweag/tree-sitter-facade" }
 clap = { version = "4.5.4", features = ["std", "derive", "help"], default-features = false }
 tree-sitter = "0.22.6"
-thiserror = "1.0.59"
+thiserror = "1.0.60"
 miette = { version = "7.2.0", default-features = false, features = ["derive", "fancy"] }
 
 [dev-dependencies]
