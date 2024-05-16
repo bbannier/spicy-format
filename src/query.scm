@@ -124,18 +124,6 @@
   (expression) @prepend_hardline @prepend_delimiter
   (#delimiter! "     ")
 )
-; (case
-;   "case" @append_space
-;   .
-;   (expression)
-;   (
-;     (expression) @prepend_spaced_softline @prepend_delimiter
-;   )*
-;   .
-;   ":"
-;   (#delimiter! "     ")
-; )
-
 
 (case
   ":" @append_indent_start
