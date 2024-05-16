@@ -64,7 +64,7 @@ pub fn format(
 ) -> Result<String> {
     let mut output = Vec::new();
 
-    let grammar = topiary_tree_sitter_facade::Language::from(tree_sitter_spicy::language_spicy());
+    let grammar = topiary_tree_sitter_facade::Language::from(tree_sitter_spicy::language());
 
     let query = TopiaryQuery::new(&grammar, QUERY).map_err(|e| match e {
         FormatterError::Query(m, e) => FormatError::Query(match e {
