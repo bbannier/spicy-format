@@ -32,6 +32,9 @@ case 5: {
 "d";
 }
 case 6: { "e"; }
+    case 7,8,9: {
+        "e";
+    }
 }
 
 switch (local x = 1) {

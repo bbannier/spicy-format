@@ -29,12 +29,18 @@ switch (1) {
     case 2:
         # Comment.
         "b";
-    case 3, 4:
+    case 3,
+         4:
         "c";
     case 5: {
         "d";
     }
     case 6: {
+        "e";
+    }
+    case 7,
+         8,
+         9: {
         "e";
     }
 }

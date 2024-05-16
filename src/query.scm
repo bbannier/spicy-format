@@ -104,15 +104,38 @@
   "switch" @append_space
   "(" (expression) ")" @append_space
   [
-    (case "case" @append_space)
+    (case)
     (comment)
   ]* @append_spaced_softline
 )
+
 (switch
   "{" @append_indent_start @append_hardline
   (_)
   "}" @prepend_indent_end @prepend_hardline
 )
+
+(case
+  "case" @append_space
+)
+
+(case
+  (expression)+
+  (expression) @prepend_hardline @prepend_delimiter
+  (#delimiter! "     ")
+)
+; (case
+;   "case" @append_space
+;   .
+;   (expression)
+;   (
+;     (expression) @prepend_spaced_softline @prepend_delimiter
+;   )*
+;   .
+;   ":"
+;   (#delimiter! "     ")
+; )
+
 
 (case
   ":" @append_indent_start
