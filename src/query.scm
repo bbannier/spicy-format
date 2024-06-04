@@ -59,6 +59,8 @@
   "=" @append_antispace
 )
 
+(struct_decl "struct" @append_space)
+
 ("struct"
  (field_decl) @append_empty_softline
   .
@@ -75,6 +77,10 @@
   "}" @prepend_indent_end @prepend_hardline
 )
 
+(unit_switch
+  "switch" @append_space
+)
+
 (unit_switch_case
   "{" @append_indent_start @append_hardline
   "}" @prepend_indent_end @prepend_hardline
@@ -86,16 +92,7 @@
   (comment)? @do_nothing
 )
 
-(struct_decl "struct" @append_space)
-
-(unit_switch
-  "switch" @append_space
-)
-(unit_switch
-  (unit_switch_case) @append_hardline
-  .
-  (comment)? @do_nothing
-)
+(unit_switch_case) @prepend_hardline
 (unit_switch_case
   "->" @prepend_space @append_space
 )

@@ -41,6 +41,16 @@ type X = unit {
 };
 
 type X = unit {
+    switch (True) {
+        * -> {
+            switch (True) {
+                * -> x: uint8;
+            };
+        }
+    };
+};
+
+type X = unit {
     on %init {}
     b: uint8 {
         print $$;
