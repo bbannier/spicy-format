@@ -130,7 +130,7 @@
   (comment)*
   ; We only match statements with a single expression here since statements
   ; with blocks do their own indention.
-  (statement (expression)) @append_indent_end
+  (statement (expression)) @prepend_input_softline @append_indent_end
 )
 
 ; Switch with local binding.
@@ -170,7 +170,6 @@
  "on"
  "="
  (is_debug)
- "if"
  (hook_priority)
 ] @append_space @prepend_space
 
@@ -299,10 +298,10 @@
 
 (sink_decl "sink" @append_space)
 
-(statement) @prepend_input_softline
-
 (
-  (statement)
+  (statement
+    (block)? @do_nothing
+  )
   .
   (comment)? @do_nothing
 ) @append_hardline
@@ -340,6 +339,9 @@
 (unit_switch (expression) ")" @append_space)
 
 (if
+  "if" @append_space
+)
+(if
   "if"
   (expression) @append_indent_start
   .
@@ -348,6 +350,9 @@
 (if
   "else" @append_indent_start
   (statement [(block) (if)]*@do_nothing) @prepend_hardline @append_indent_end
+)
+(if
+  "else" @prepend_space @append_space
 )
 
 
@@ -361,11 +366,11 @@
 )
 (for
   ")" @append_indent_start
-  (statement (block)*@do_nothing) @append_indent_end
+  (statement (block)*@do_nothing) @prepend_input_softline @append_indent_end
 )
 
 (while
-  "while" @prepend_space
+  "while" @append_space
   "(" @prepend_space
   ")" @append_space
 )
@@ -392,17 +397,21 @@
   (#multi_line_only!)
 )
 
-; Suppress space before field `;` decl with `if.
-(field_decl
-  (is_skip)? @append_space
-  (if (statement ";") @prepend_antispace)?
-)
 ; Enforce spaces around `->` in field sink syntax.
 (field_decl
   "->" @prepend_space @append_space
   (sink)
 )
 
+(field_decl
+  (is_skip)? @append_space
+)
+
+(field_decl
+  "if" @prepend_space
+  .
+  "("
+)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Bitfields.
 

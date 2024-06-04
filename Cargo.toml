@@ -9,9 +9,8 @@ repository = "https://github.com/bbannier/spicy-format"
 
 [dependencies]
 tree-sitter-spicy = { git = "https://github.com/bbannier/tree-sitter-spicy" }
-topiary-core = { git = "https://github.com/tweag/topiary.git", version = "0.3.0" }
-topiary-tree-sitter-facade = { git = "https://github.com/tweag/topiary.git", version = "0.3.0" }
-tree-sitter-facade = { git = "https://github.com/tweag/tree-sitter-facade" }
+topiary-core = { git = "https://github.com/tweag/topiary.git", version = "0.4.0" }
+topiary-tree-sitter-facade = { git = "https://github.com/tweag/topiary.git", version = "0.4.0" }
 clap = { version = "4.5.4", features = ["std", "derive", "help"], default-features = false }
 tree-sitter = "0.22.6"
 thiserror = "1.0.61"

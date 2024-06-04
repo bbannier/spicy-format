@@ -8,14 +8,11 @@ function f() {
 }
 
 function f() {
-    if (True)
-    {
+    if (True) {
         1;
-    }
-    else if (False) {
+    } else if (False) {
         2;
-    }
-    else {
+    } else {
         3;
     }
 }
