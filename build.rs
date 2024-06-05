@@ -5,7 +5,7 @@ fn main() {
     assert!(is_git_repo, "foo");
     vergen::EmitBuilder::builder()
         .idempotent()
-        .git_sha(true)
+        .git_describe(true, true, None)
         .emit()
         .unwrap();
 }
