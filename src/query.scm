@@ -97,6 +97,11 @@
   "->" @prepend_space @append_space
 )
 
+(unit_switch_case
+  (expression)+
+  (expression) @prepend_hardline
+)
+
 (switch
   "switch" @append_space
   "(" (expression) ")" @append_space

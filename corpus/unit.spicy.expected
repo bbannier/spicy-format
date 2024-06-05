@@ -41,16 +41,6 @@ type X = unit {
 };
 
 type X = unit {
-    switch (True) {
-        * -> {
-            switch (True) {
-                * -> x: uint8;
-            };
-        }
-    };
-};
-
-type X = unit {
     on %init {}
     b: uint8 {
         print $$;
@@ -64,13 +54,6 @@ type X = unit(inout n: uint8) {};
 
 type X = unit {
     : uint8 if(True);
-};
-
-public type X = unit {
-    switch (1 + 1) {
-        1 -> a: b"1";
-        * -> : void;
-    };
 };
 
 type X = unit {};
@@ -134,6 +117,31 @@ type X = unit {
     };
 
     # Bar.
+};
+
+public type X = unit {
+    switch (1 + 1) {
+        1 -> a: b"1";
+        * -> : void;
+    };
+};
+
+type X = unit {
+    switch (True) {
+        * -> {
+            switch (True) {
+                * -> x: uint8;
+            };
+        }
+    };
+};
+
+type X = unit(a: uint8) {
+    switch (a) {
+        1,
+        2,
+        3 -> : skip uint8;
+    };
 };
 
 # Sink syntax.
