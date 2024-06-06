@@ -127,6 +127,10 @@ public type X = unit {
     sink data;
     };
 
+type HeuristicContent = unit {
+    : bytes &eod -> other.sink_;
+};
+
 # Attributes on unit switch.
 type X = unit {
     switch ( 1 ) {

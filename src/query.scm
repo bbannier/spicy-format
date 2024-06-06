@@ -402,7 +402,8 @@
 ; Enforce spaces around `->` in field sink syntax.
 (field_decl
   "->" @prepend_space @append_space
-  (sink)
+  .
+  (expression)
 )
 
 (field_decl
