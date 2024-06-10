@@ -807,8 +807,8 @@ dependencies = [
 
 [[package]]
 name = "topiary-core"
-version = "0.4.0"
-source = "git+https://github.com/tweag/topiary.git#42f2630130c36d8b69615ed9b96b50196451c80b"
+version = "0.4.1"
+source = "git+https://github.com/tweag/topiary.git#c92b16c72707549fbc1dcded4accba427be658e6"
 dependencies = [
  "futures",
  "itertools",
@@ -825,8 +825,8 @@ dependencies = [
 
 [[package]]
 name = "topiary-tree-sitter-facade"
-version = "0.4.0"
-source = "git+https://github.com/tweag/topiary.git#42f2630130c36d8b69615ed9b96b50196451c80b"
+version = "0.4.1"
+source = "git+https://github.com/tweag/topiary.git#c92b16c72707549fbc1dcded4accba427be658e6"
 dependencies = [
  "js-sys",
  "topiary-web-tree-sitter-sys",
@@ -837,8 +837,8 @@ dependencies = [
 
 [[package]]
 name = "topiary-web-tree-sitter-sys"
-version = "0.4.0"
-source = "git+https://github.com/tweag/topiary.git#42f2630130c36d8b69615ed9b96b50196451c80b"
+version = "0.4.1"
+source = "git+https://github.com/tweag/topiary.git#c92b16c72707549fbc1dcded4accba427be658e6"
 dependencies = [
  "js-sys",
  "wasm-bindgen",
