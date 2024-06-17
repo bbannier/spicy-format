@@ -869,7 +869,7 @@ dependencies = [
 [[package]]
 name = "tree-sitter-spicy"
 version = "0.0.1"
-source = "git+https://github.com/bbannier/tree-sitter-spicy#3d422d374a40b36625ef7050a8f049642bf6bb2d"
+source = "git+https://github.com/bbannier/tree-sitter-spicy#adf74b7167613c8c9769841f0df761380b925cd1"
 dependencies = [
  "cc",
  "tree-sitter 0.20.10",
