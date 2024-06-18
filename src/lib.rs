@@ -198,7 +198,7 @@ mod test {
                     o.join(file_name)
                 };
 
-                let formatted = format(&input, false, true).expect(&format!(
+                let formatted = format(&input, false, false).expect(&format!(
                     "cannot format source file {}",
                     t.path().to_string_lossy()
                 ));

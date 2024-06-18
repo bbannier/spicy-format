@@ -24,8 +24,9 @@
 1;
 @endif
 
-# FIXME(bbannier): Empty lines in bodies are currently not removed.
-@if
+
+
+@if 1
 
 @else
 

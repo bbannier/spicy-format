@@ -20,11 +20,8 @@
 1;
 @endif
 
-# FIXME(bbannier): Empty lines in bodies are currently not removed.
-@if
-
+@if 1
 @else
-
 @endif
 
 # We allow constructs like `import` in preprocessor macros.
