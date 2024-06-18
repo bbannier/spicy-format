@@ -36,3 +36,6 @@ map<uint8, bytes>(1: b"");
 
 function f() {}
 function f() {}
+
+# Declaration with templated arg type. This checks that we always leave a space between `>` and `=`.
+public function file_data_in(data: bytes, fid: optional<string> = Null): void &cxxname="zeek::spicy::rt::file_data_in";
