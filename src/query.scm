@@ -81,6 +81,10 @@
   "switch" @append_space
 )
 
+(unit_switch
+  "if" @prepend_space
+)
+
 (unit_switch_case
   "{" @append_indent_start @append_hardline
   "}" @prepend_indent_end @prepend_hardline

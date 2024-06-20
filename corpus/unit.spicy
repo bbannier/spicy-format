@@ -139,6 +139,14 @@ type X = unit {
     } &eod &until &size=1;
 };
 
+type X = unit {
+    switch ( 1 ) {
+        * -> : void;
+    }     if  (False);
+};
+
+# Condition on unit switch.
+
 # External hook implementation.
 on X::Y::%done {1;2;
 }
