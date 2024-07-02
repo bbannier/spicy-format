@@ -1,6 +1,7 @@
 use {
     clap::Parser,
     miette::{ensure, Context, Diagnostic, Result},
+    rayon::iter::{IntoParallelRefIterator, ParallelIterator},
     spicy_format::format,
     std::{io::Read, path::PathBuf},
     thiserror::Error,
@@ -61,7 +62,7 @@ fn main() -> Result<()> {
     } else {
         let failed = args
             .input_files
-            .iter()
+            .par_iter()
             .filter_map(|input_file| {
                 let source = match std::fs::read_to_string(input_file)
                     .map_err(Error::Io)
