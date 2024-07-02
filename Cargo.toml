@@ -1,6 +1,6 @@
 [package]
 name = "spicy-format"
-version = "0.8.0"
+version = "0.8.1"
 edition = "2021"
 license = "MIT"
 repository = "https://github.com/bbannier/spicy-format"
