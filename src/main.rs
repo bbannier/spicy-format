@@ -8,7 +8,7 @@ use {
 };
 
 #[derive(Parser)]
-#[clap(version = option_env!("VERGEN_GIT_DESCRIBE"))]
+#[clap(version = version())]
 struct Args {
     #[clap(
         help = "input files to operate on",
@@ -107,4 +107,8 @@ fn main() -> Result<()> {
     }
 
     Ok(())
+}
+
+fn version() -> &'static str {
+    option_env!("VERGEN_GIT_DESCRIBE").unwrap_or_else(|| env!("CARGO_PKG_VERSION"))
 }
