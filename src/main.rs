@@ -96,7 +96,6 @@ fn main() -> Result<()> {
                     }
                 } else {
                     println!("{formatted}");
-                    return Some(input_file);
                 }
 
                 None
