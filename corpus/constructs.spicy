@@ -45,3 +45,6 @@ case 3: {}
 }
 
 throw   "yikes" ;
+
+print 1;
+print;

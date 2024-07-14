@@ -53,3 +53,6 @@ switch (local x = 1) {
 }
 
 throw "yikes";
+
+print 1;
+print;
