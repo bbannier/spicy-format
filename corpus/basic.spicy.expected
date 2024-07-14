@@ -56,4 +56,5 @@ a /= "";
 *spicy::getenv("FOO");
 *spicy::getenv("FOO");
 
+add xs[1];
 delete xs[1];

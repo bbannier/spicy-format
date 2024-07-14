@@ -226,8 +226,12 @@
   (":" @prepend_space @append_space (_))?
 )
 
+; Set operations
+(set_add
+  "add" @append_space
+)
 (delete
-  (_) @prepend_space
+  "delete" @append_space
 )
 
 [
