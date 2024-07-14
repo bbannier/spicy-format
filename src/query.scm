@@ -291,11 +291,17 @@
 (function_decl "function" @append_space)
 
 (
- [
-  (var_decl)
- ] @append_hardline @prepend_hardline
+ ; Use softlines since we want to format var decls in loop headers on a single line.
+ (var_decl) @append_spaced_softline @prepend_spaced_softline
  .
  (comment)? @do_nothing
+)
+
+; Above softlines insert an empty space; remove it if we are in a loop header.
+(while
+  "while"
+  .
+  "(" @append_antispace
 )
 
 (var_decl
