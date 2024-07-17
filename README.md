@@ -22,8 +22,8 @@ Follow the printed instructions. This will install both the formatter
 `spicy-format` itself as well as an updater script `spicy-format-update` which
 can be used to update to newer releases.
 
-Alternatively you can also download prebuilt binaries on the release page (does
-not include updater).
+Alternatively you can also download prebuilt binaries and updaters on the
+release page.
 
 ### Building from source
 
