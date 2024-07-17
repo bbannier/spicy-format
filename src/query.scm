@@ -1,8 +1,14 @@
-; Configuration
-; topiary hardcodes the list of known languages, fool it to think it knows spicy.
-; (#language! spicy)
-(#language! json)
-(#indent! "    ")
+; Rules for formatting Spicy.
+;
+; Formatting is specified here in terms of tree-sitter nodes. We select nodes
+; with tree-sitter queries[^1] and then attach topiary formatting rules[^2] in
+; the captures.
+;
+; See the Development section in README.md for a workflow on how to modify or
+; extend these rules.
+
+; [^1]: https://tree-sitter.github.io/tree-sitter/using-parsers#pattern-matching-with-queries
+; [^2]: https://github.com/tweag/topiary#design
 
 [
   (attribute_name)
