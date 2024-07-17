@@ -36,18 +36,20 @@
   (module_decl) @allow_blank_line_before
 )
 
-("unit"
- "{" @append_indent_start @append_hardline
- (_)
- "}" @prepend_indent_end @prepend_hardline
+(
+  "unit"
+  "{" @append_indent_start @append_hardline
+  (_)
+  "}" @prepend_indent_end @prepend_hardline
 )
 
-("unit"
- [
-  (field_decl)
-  (sink_decl)
-  (unit_switch)
- ] @append_empty_softline
+(
+  "unit"
+  [
+    (field_decl)
+    (sink_decl)
+    (unit_switch)
+  ] @append_empty_softline
   .
   (comment)? @do_nothing
 )
@@ -58,8 +60,7 @@
   (comment)? @do_nothing
 )
 
-(
- hook_priority
+(hook_priority
   "priority" @append_antispace
   .
   "=" @append_antispace
@@ -67,15 +68,17 @@
 
 (struct_decl "struct" @append_space)
 
-("struct"
- (field_decl) @append_empty_softline
+(
+  "struct"
+  (field_decl) @append_empty_softline
   .
   (comment)? @do_nothing
 )
-("struct"
- "{" @append_indent_start @append_hardline
- (_)
- "}" @prepend_indent_end @prepend_hardline
+(
+  "struct"
+  "{" @append_indent_start @append_hardline
+  (_)
+  "}" @prepend_indent_end @prepend_hardline
 )
 
 (unit_switch
@@ -97,7 +100,7 @@
 )
 
 (unit_switch_case
- (field_decl) @append_empty_softline
+  (field_decl) @append_empty_softline
   .
   (comment)? @do_nothing
 )
@@ -114,7 +117,9 @@
 
 (switch
   "switch" @append_space
-  "(" (expression) ")" @append_space
+  "("
+  (expression)
+  ")" @append_space
   [
     (case)
     (comment)
@@ -157,32 +162,31 @@
 )
 
 (
- (enum_label) @append_delimiter
- .
- ","? @delete
- (#delimiter! ",")
+  (enum_label) @append_delimiter
+  .
+  ","? @delete
+  (#delimiter! ",")
 )
 
-("{" @append_hardline
- (enum_label)
- .
- ((enum_label))+
- "}" @prepend_hardline
+(
+  "{" @append_hardline
+  (enum_label)
+  . ((enum_label))+ "}" @prepend_hardline
 )
 (
- (enum_label)
- .
- (enum_label) @prepend_hardline
+  (enum_label)
+  .
+  (enum_label) @prepend_hardline
 )
 
 [
- "type"
- "enum"
- "unit"
- "on"
- "="
- (is_debug)
- (hook_priority)
+  "type"
+  "enum"
+  "unit"
+  "on"
+  "="
+  (is_debug)
+  (hook_priority)
 ] @append_space @prepend_space
 
 (inout) @append_space
@@ -190,23 +194,23 @@
 (binary_op
   (_)
   [
-   "+"
-   "-"
-   "*"
-   "/"
-   "%"
-   ">"
-   "<"
-   ">="
-   "<="
-   "=="
-   "!="
-   "&&"
-   "||"
-   "&"
-   "|"
-   "|"
-   "^"
+    "+"
+    "-"
+    "*"
+    "/"
+    "%"
+    ">"
+    "<"
+    ">="
+    "<="
+    "=="
+    "!="
+    "&&"
+    "||"
+    "&"
+    "|"
+    "|"
+    "^"
   ] @prepend_space @append_space
   (_)
 )
@@ -221,15 +225,14 @@
 (unary_op "-" @append_antispace (_))
 
 [
- ","
- "new"
+  ","
+  "new"
 ] @append_space
 
-(optional)@prepend_space
+(optional) @prepend_space
 
 (assert
-  (_) @prepend_space
-  (":" @prepend_space @append_space (_))?
+  (_) @prepend_space (":" @prepend_space @append_space (_))?
 )
 
 ; Set operations
@@ -241,41 +244,40 @@
 )
 
 [
- ":"
+  ":"
 ] @append_space
 
 [
- (comment)
- (type_decl)
- (field_decl)
- (unit_switch)
- (struct_decl)
- (sink_decl)
- (hook_decl)
- (function_decl)
- (var_decl)
- (enum_decl)
- (attribute)
- (property)
- (statement)
- (import)
+  (comment)
+  (type_decl)
+  (field_decl)
+  (unit_switch)
+  (struct_decl)
+  (sink_decl)
+  (hook_decl)
+  (function_decl)
+  (var_decl)
+  (enum_decl)
+  (attribute)
+  (property)
+  (statement)
+  (import)
 ] @allow_blank_line_before
 
 (
   [
-   (enum_decl)
-   (type_decl)
-   (function_decl)
-   (struct_decl)
-  ]
-  @append_hardline
+    (enum_decl)
+    (type_decl)
+    (function_decl)
+    (struct_decl)
+  ] @append_hardline
   .
   (comment)? @do_nothing
 )
 
 [
- (field_decl)
- (sink_decl)
+  (field_decl)
+  (sink_decl)
 ] @append_input_softline
 
 (visibility) @append_space
@@ -293,18 +295,18 @@
 )
 
 (
- ";" @append_spaced_softline
- .
- (comment)? @do_nothing
+  ";" @append_spaced_softline
+  .
+  (comment)? @do_nothing
 )
 
 (function_decl "function" @append_space)
 
 (
- ; Use softlines since we want to format var decls in loop headers on a single line.
- (var_decl) @append_spaced_softline @prepend_spaced_softline
- .
- (comment)? @do_nothing
+  ; Use softlines since we want to format var decls in loop headers on a single line.
+  (var_decl) @append_spaced_softline @prepend_spaced_softline
+  .
+  (comment)? @do_nothing
 )
 
 ; Above softlines insert an empty space; remove it if we are in a loop header.
@@ -336,7 +338,7 @@
 (unset "unset" @append_space)
 
 (list
- "," @append_spaced_softline
+  "," @append_spaced_softline
 )
 
 (ternary
@@ -346,12 +348,14 @@
   ":" @prepend_space @append_space
 )
 
-("unit"
+(
+  "unit"
   (params ((_)+)) @prepend_antispace @append_space
 )
 
 ; Remove empty `()` in `unit ()`.
-("unit"
+(
+  "unit"
   (params
     ((ident) @do_nothing)*
   ) @delete
@@ -367,16 +371,15 @@
   "if"
   (expression) @append_indent_start
   .
-  (statement (block)*@do_nothing) @prepend_hardline @append_indent_end
+  (statement (block)* @do_nothing) @prepend_hardline @append_indent_end
 )
 (if
   "else" @append_indent_start
-  (statement [(block) (if)]*@do_nothing) @prepend_hardline @append_indent_end
+  (statement [(block) (if)]* @do_nothing) @prepend_hardline @append_indent_end
 )
 (if
   "else" @prepend_space @append_space
 )
-
 
 (for
   "for" @prepend_space
@@ -388,7 +391,7 @@
 )
 (for
   ")" @append_indent_start
-  (statement (block)*@do_nothing) @prepend_input_softline @append_indent_end
+  (statement (block)* @do_nothing) @prepend_input_softline @append_indent_end
 )
 
 (while
@@ -413,9 +416,7 @@
 
 (function_call
   (ident)
-  "(" @append_hardline @append_indent_start
-  ((expression) . "," @append_hardline)+
-  ")" @prepend_indent_end @prepend_hardline
+  "(" @append_hardline @append_indent_start ((expression) . "," @append_hardline)+ ")" @prepend_indent_end @prepend_hardline
   (#multi_line_only!)
 )
 
@@ -439,10 +440,10 @@
 ; Bitfields.
 
 (
- "bitfield"
- (_)
- "{" @prepend_space @append_indent_start @append_hardline
- "}" @prepend_indent_end @prepend_hardline
+  "bitfield"
+  (_)
+  "{" @prepend_space @append_indent_start @append_hardline
+  "}" @prepend_indent_end @prepend_hardline
 )
 
 ; All bitfield fields go on a new line.
@@ -463,7 +464,8 @@
 ; terminated by explicit newlines instead of `;`. Force a newline, but delete
 ; original newlines so we do not insert stray empty lines or spaces.
 (preproc
-  "@if" (expression) @append_hardline
+  "@if"
+  (expression) @append_hardline
   "\n" @delete
 )
 (preproc
