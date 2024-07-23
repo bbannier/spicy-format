@@ -4,3 +4,6 @@ public type A = unit {};   # Should stay here.
 public type A = struct {}; # Should stay here.
 
 function f() {}            # Should stay here.
+
+if (True) # Should stay here.
+	1;

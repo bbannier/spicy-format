@@ -371,6 +371,8 @@
   "if"
   (expression) @append_indent_start
   .
+  (comment)?
+  .
   (statement (block)* @do_nothing) @prepend_hardline @append_indent_end
 )
 (if
