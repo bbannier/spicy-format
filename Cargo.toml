@@ -11,7 +11,7 @@ repository = "https://github.com/bbannier/spicy-format"
 tree-sitter-spicy = { git = "https://github.com/bbannier/tree-sitter-spicy" }
 topiary-core = { git = "https://github.com/tweag/topiary.git", version = "0.4.0" }
 topiary-tree-sitter-facade = { git = "https://github.com/tweag/topiary.git", version = "0.4.0" }
-clap = { version = "4.5.13", features = ["std", "derive", "help"], default-features = false }
+clap = { version = "4.5.15", features = ["std", "derive", "help"], default-features = false }
 tree-sitter = "0.22.6"
 thiserror = "1.0.63"
 miette = { version = "7.2.0", default-features = false, features = ["derive", "fancy"] }
