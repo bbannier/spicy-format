@@ -72,7 +72,7 @@ fn main() -> Result<()> {
                     .wrap_err(format!("while reading input file {}", input_file.display()))
                 {
                     Err(e) => {
-                        eprintln!("{e:#}");
+                        eprintln!("{e:?}");
                         return Some(input_file);
                     }
                     Ok(s) => s,
@@ -81,7 +81,7 @@ fn main() -> Result<()> {
                 let formatted = match format(&source, &input_file.display().to_string()) {
                     Ok(f) => f,
                     Err(e) => {
-                        eprintln!("{e:#}");
+                        eprintln!("{e:?}");
                         return Some(input_file);
                     }
                 };
@@ -94,7 +94,7 @@ fn main() -> Result<()> {
                             input_file.display()
                         ))
                     {
-                        eprintln!("{e:#}");
+                        eprintln!("{e:?}");
                         return Some(input_file);
                     }
                 } else {
