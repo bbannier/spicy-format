@@ -58,7 +58,10 @@ fn main() -> Result<()> {
             .read_to_string(&mut buf)
             .map_err(Error::Io)
             .wrap_err("while reading input from stdin")?;
-        println!("{}", format(&buf, "<stdin>")?);
+
+        // When printing the result do not insert extra newlines.
+        let formatted = format(&buf, "<stdin>")?;
+        print!("{formatted}");
     } else {
         let failed = args
             .input_files
@@ -95,7 +98,8 @@ fn main() -> Result<()> {
                         return Some(input_file);
                     }
                 } else {
-                    println!("{formatted}");
+                    // When printing the result do not insert extra newlines.
+                    print!("{formatted}");
                 }
 
                 None
