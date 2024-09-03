@@ -185,7 +185,7 @@ mod test {
                     let file_name = format!(
                         "{}.expected",
                         path.file_name()
-                            .expect(&format!(
+                            .unwrap_or_else(|| panic!(
                                 "cannot get filename component of {}",
                                 path.display()
                             ))
@@ -198,10 +198,9 @@ mod test {
                     o.join(file_name)
                 };
 
-                let formatted = format(&input, false, false).expect(&format!(
-                    "cannot format source file {}",
-                    t.path().to_string_lossy()
-                ));
+                let formatted = format(&input, false, false).unwrap_or_else(|_| {
+                    panic!("cannot format source file {}", t.path().to_string_lossy())
+                });
 
                 if !update_baseline {
                     let expected = std::fs::read_to_string(output).expect("cannot read baseline");
