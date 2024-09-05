@@ -1,0 +1,6 @@
+module shift;
+
+global x = 0xff;
+
+print (x & 0xf)>>3;
+print (x & 0xf0)<<3;
