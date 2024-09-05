@@ -1,0 +1,6 @@
+- id: spicy-format
+  name: Format .spicy files
+  description: This hooks formats all .spicy files.
+  entry: spicy-format -s -i
+  language: rust
+  files: '\.spicy$'
