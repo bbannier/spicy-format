@@ -941,7 +941,7 @@ dependencies = [
  "thiserror",
  "topiary-core",
  "topiary-tree-sitter-facade",
- "tree-sitter",
+ "tree-sitter 0.23.0",
  "tree-sitter-spicy",
  "vergen-git2",
  "walkdir",
@@ -1175,7 +1175,7 @@ source = "git+https://github.com/tweag/topiary.git#cff73fc3d58490b260935a4d9968a
 dependencies = [
  "js-sys",
  "topiary-web-tree-sitter-sys",
- "tree-sitter",
+ "tree-sitter 0.20.10",
  "wasm-bindgen",
  "web-sys",
 ]
@@ -1202,12 +1202,30 @@ dependencies = [
 ]
 
 [[package]]
+name = "tree-sitter"
+version = "0.23.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "20f4cd3642c47a85052a887d86704f4eac272969f61b686bdd3f772122aabaff"
+dependencies = [
+ "cc",
+ "regex",
+ "regex-syntax",
+ "tree-sitter-language",
+]
+
+[[package]]
+name = "tree-sitter-language"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2545046bd1473dac6c626659cc2567c6c0ff302fc8b84a56c4243378276f7f57"
+
+[[package]]
 name = "tree-sitter-spicy"
 version = "0.0.1"
 source = "git+https://github.com/bbannier/tree-sitter-spicy#333e0c60a101bfbf5795fa59bbddd54dc6717c1f"
 dependencies = [
  "cc",
- "tree-sitter",
+ "tree-sitter 0.20.10",
 ]
 
 [[package]]
