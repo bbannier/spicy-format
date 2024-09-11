@@ -20,7 +20,7 @@ repos:
     hooks:
       - id: gitlint
   - repo: https://github.com/crate-ci/typos
-    rev: v1.23.3
+    rev: v1.24.5
     hooks:
       - id: typos
   - repo: https://github.com/igorshubovych/markdownlint-cli
