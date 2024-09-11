@@ -92,6 +92,13 @@
 
 (unit_switch
   "if" @prepend_space
+  .
+  "("
+  .
+  (expression)
+  .
+  ; FIXME(bbannier): Unsure where this space comes from.
+  ")" @append_antispace
 )
 
 (unit_switch_case

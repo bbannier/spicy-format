@@ -145,7 +145,11 @@ type X = unit {
     }     if  (False);
 };
 
-# Condition on unit switch.
+type X = unit {
+    switch {
+        -> : uint8;
+    } if(True) ;
+};
 
 # External hook implementation.
 on X::Y::%done {1;2;
