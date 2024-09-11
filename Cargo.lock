@@ -1153,7 +1153,7 @@ dependencies = [
 [[package]]
 name = "topiary-core"
 version = "0.4.2"
-source = "git+https://github.com/tweag/topiary.git#cff73fc3d58490b260935a4d9968a180acf75b8b"
+source = "git+https://github.com/tweag/topiary.git#b4a842673b2849fd1efef23df39cc25e26a352c8"
 dependencies = [
  "futures",
  "itertools",
@@ -1171,7 +1171,7 @@ dependencies = [
 [[package]]
 name = "topiary-tree-sitter-facade"
 version = "0.4.2"
-source = "git+https://github.com/tweag/topiary.git#cff73fc3d58490b260935a4d9968a180acf75b8b"
+source = "git+https://github.com/tweag/topiary.git#b4a842673b2849fd1efef23df39cc25e26a352c8"
 dependencies = [
  "js-sys",
  "topiary-web-tree-sitter-sys",
@@ -1183,7 +1183,7 @@ dependencies = [
 [[package]]
 name = "topiary-web-tree-sitter-sys"
 version = "0.4.2"
-source = "git+https://github.com/tweag/topiary.git#cff73fc3d58490b260935a4d9968a180acf75b8b"
+source = "git+https://github.com/tweag/topiary.git#b4a842673b2849fd1efef23df39cc25e26a352c8"
 dependencies = [
  "js-sys",
  "wasm-bindgen",
@@ -1193,9 +1193,9 @@ dependencies = [
 
 [[package]]
 name = "tree-sitter"
-version = "0.20.10"
+version = "0.22.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e747b1f9b7b931ed39a548c1fae149101497de3c1fc8d9e18c62c1a66c683d3d"
+checksum = "df7cc499ceadd4dcdf7ec6d4cbc34ece92c3fa07821e287aedecd4416c516dca"
 dependencies = [
  "cc",
  "regex",
@@ -1204,7 +1204,7 @@ dependencies = [
 [[package]]
 name = "tree-sitter-spicy"
 version = "0.0.1"
-source = "git+https://github.com/bbannier/tree-sitter-spicy#333e0c60a101bfbf5795fa59bbddd54dc6717c1f"
+source = "git+https://github.com/bbannier/tree-sitter-spicy?branch=wip#ba5770646563a5c0a5d185884ff96c2590902235"
 dependencies = [
  "cc",
  "tree-sitter",
