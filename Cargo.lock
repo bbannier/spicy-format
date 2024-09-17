@@ -940,7 +940,6 @@ dependencies = [
  "thiserror",
  "topiary-core",
  "topiary-tree-sitter-facade",
- "tree-sitter",
  "tree-sitter-spicy",
  "vergen-git2",
  "walkdir",
