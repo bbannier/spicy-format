@@ -1,10 +1,12 @@
 use std::{
+    collections::HashMap,
     io::{Read, Write},
-    path::PathBuf,
+    path::{Path, PathBuf},
     process::{Command, Stdio},
 };
 
 use assert_cmd::cargo::CommandCargoExt;
+use miette::miette;
 use rayon::prelude::*;
 use tempfile::NamedTempFile;
 
@@ -125,4 +127,75 @@ fn corpus() -> Result<()> {
         .collect::<Vec<_>>();
 
     Ok(())
+}
+
+#[test]
+fn corpus_external() -> miette::Result<()> {
+    let Ok(corpus) = std::env::var("SPICY_FORMAT_EXTERNAL_CORPUS") else {
+        return Ok(());
+    };
+
+    let is_filtered = |p: &Path| -> bool {
+        let deny_list = [
+            "tools/preprocessor.spicy",
+            "types/unit/hooks-fail.spicy",
+            // Fails due to parser ambiguity due to https://github.com/zeek/spicy/issues/1566.
+            "types/unit/switch-attributes-fail.spicy",
+        ];
+
+        deny_list.iter().any(|b| p.ends_with(b))
+    };
+
+    // Compute a vector of file names so we can process them below in parallel.
+    let files = walkdir::WalkDir::new(&corpus)
+        .into_iter()
+        .filter_map(|e| {
+            let e = e.ok()?;
+
+            if e.file_type().is_file()
+                && e.path().extension().and_then(|ext| ext.to_str()) == Some("spicy")
+                && !is_filtered(e.path())
+            {
+                Some(e)
+            } else {
+                None
+            }
+        })
+        .collect::<Vec<_>>();
+
+    let results = files
+        .par_iter()
+        .filter_map(|f| {
+            let f = f.path().to_str()?;
+
+            let source = std::fs::read_to_string(f).ok()?;
+
+            // Ignore inputs with multiple parts.
+            if source.contains("@TEST-START-FILE") {
+                return None;
+            }
+
+            match format(&source) {
+                Err(_) => Some((f.to_string(), false)),
+                Ok(_) => Some((f.to_string(), true)),
+            }
+        })
+        .collect::<HashMap<_, _>>();
+
+    let num_tests = results.len();
+
+    let failures = results
+        .into_iter()
+        .filter_map(|(f, success)| if success { None } else { Some(f) })
+        .collect::<Vec<_>>();
+
+    if failures.is_empty() {
+        Ok(())
+    } else {
+        Err(miette!(
+            "{} out of {num_tests} inputs failed:\n{}",
+            failures.len(),
+            failures.join("\n")
+        ))
+    }
 }
