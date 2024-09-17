@@ -29,7 +29,8 @@ vergen-git2 = { version = "1.0.0", default-features = false }
 panic = "abort"
 strip = true
 codegen-units = 1
-lto = "thin"
+lto = true
+opt-level = "z"
 
 # The profile that 'cargo dist' will build with
 [profile.dist]
