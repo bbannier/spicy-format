@@ -1,9 +1,11 @@
 use std::{
     io::{Read, Write},
+    path::PathBuf,
     process::{Command, Stdio},
 };
 
 use assert_cmd::cargo::CommandCargoExt;
+use rayon::prelude::*;
 use tempfile::NamedTempFile;
 
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
@@ -36,5 +38,91 @@ fn trailing_newline_file() -> Result<()> {
     let stdout = String::from_utf8(cmd.stdout)?;
 
     assert_eq!(stdout, "1;\n");
+    Ok(())
+}
+
+/// Helper to format an input file via the CLI.
+fn format<P>(input: P) -> Result<String>
+where
+    P: Into<PathBuf>,
+{
+    let output = Command::cargo_bin("spicy-format")?
+        .arg("--reject-parse-errors")
+        .arg(input.into())
+        .stdout(Stdio::piped())
+        .output()?;
+
+    let output = String::from_utf8(output.stdout)?;
+
+    Ok(output)
+}
+
+#[test]
+fn corpus() -> Result<()> {
+    use pretty_assertions::assert_eq;
+
+    let corpus = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("corpus");
+
+    let update_baseline = std::env::var("UPDATE_BASELINE").is_ok();
+
+    let files = walkdir::WalkDir::new(&corpus)
+        .into_iter()
+        .filter_map(|e| {
+            let e = e.ok()?;
+
+            if e.file_type().is_file()
+                && e.path().extension().and_then(|ext| ext.to_str()) == Some("spicy")
+            {
+                Some(e)
+            } else {
+                None
+            }
+        })
+        .collect::<Vec<_>>();
+
+    files
+        .par_iter()
+        .filter_map(|t| {
+            let input = t.path();
+
+            let output = {
+                let path = input.to_path_buf();
+
+                let file_name = format!(
+                    "{}.expected",
+                    path.file_name()
+                        .unwrap_or_else(|| panic!(
+                            "cannot get filename component of {}",
+                            path.display()
+                        ))
+                        .to_string_lossy()
+                );
+
+                let mut o = path;
+                assert!(o.pop());
+
+                o.join(file_name)
+            };
+
+            let formatted = format(&input).unwrap_or_else(|_| {
+                panic!("cannot format source file {}", t.path().to_string_lossy())
+            });
+
+            if !update_baseline {
+                let expected = std::fs::read_to_string(output).expect("cannot read baseline");
+                assert_eq!(
+                    expected,
+                    formatted,
+                    "while formatting {}",
+                    t.path().display()
+                );
+            } else {
+                std::fs::write(output, formatted).expect("cannot update baseline");
+            }
+
+            Some(1)
+        })
+        .collect::<Vec<_>>();
+
     Ok(())
 }
