@@ -12,7 +12,7 @@ tree-sitter-spicy = { git = "https://github.com/bbannier/tree-sitter-spicy" }
 topiary-core = { git = "https://github.com/tweag/topiary.git", rev = "2be4b840e008f659a5b5950f152275b500c4dfcd" }
 topiary-tree-sitter-facade = { git = "https://github.com/tweag/topiary.git", rev = "2be4b840e008f659a5b5950f152275b500c4dfcd" }
 clap = { version = "4.5.17", features = ["std", "derive", "help"], default-features = false }
-thiserror = "1.0.63"
+thiserror = "1.0.64"
 miette = { version = "7.2.0", default-features = false, features = ["derive", "fancy"] }
 rayon = "1.10.0"
 
