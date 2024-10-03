@@ -193,6 +193,7 @@
   "on"
   "="
   (is_debug)
+  (is_error)
   (hook_priority)
 ] @append_space @prepend_space
 

@@ -159,3 +159,10 @@ on X::Y::%error {}
 # Debug hooks.
 on X::Y::%done %debug {}
 on X::Y::%error (e: msg )%debug {}
+
+# Error hooks.
+type Test = unit {
+    b: b"B" %error {}
+    on b %error {}
+};
+on Test::b(msg: string) %error {}
