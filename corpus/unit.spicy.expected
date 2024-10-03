@@ -191,3 +191,16 @@ type Test = unit {
     on b %error {}
 };
 on Test::b(msg: string) %error {}
+
+# Unit if/else blocks.
+type X = unit {
+    if (True) {
+        a1: bytes &size=2;
+    } &max-size=42 &requires=True;
+
+    if (True) {
+            a1: bytes &size=2;
+            a1: bytes &size=2;
+        } else {
+    } &max-size=42 &requires=True;
+};

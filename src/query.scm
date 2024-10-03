@@ -261,6 +261,7 @@
   (comment)
   (type_decl)
   (field_decl)
+  (unit_if_else)
   (unit_switch)
   (struct_decl)
   (sink_decl)
@@ -369,6 +370,25 @@
   (params
     ((ident) @do_nothing)*
   ) @delete
+)
+
+; Unit `if`/`else` blocks.
+(unit_if_else
+  "if" @append_space
+  "{" @prepend_space
+  ("else" @prepend_space @append_space)?
+)
+(unit_if_else
+  "{" @append_indent_start @append_hardline
+  .
+  (field_decl)* ; List explicitly so we match the correct {} pair.
+  .
+  "}" @prepend_indent_end @prepend_hardline
+)
+(unit_if_else
+  (field_decl) @append_empty_softline
+  .
+  (comment)? @do_nothing
 )
 
 ; Unit `switch` statement.
