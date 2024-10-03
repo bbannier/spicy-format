@@ -44,16 +44,18 @@ fn trailing_newline_file() -> Result<()> {
 }
 
 /// Helper to format an input file via the CLI.
-fn format<P>(input: P) -> Result<String>
+fn format<P>(path: P) -> Result<String>
 where
     P: Into<PathBuf>,
 {
+    let path = path.into();
     let output = Command::cargo_bin("spicy-format")?
         .arg("--reject-parse-errors")
-        .arg(input.into())
+        .arg(&path)
         .stdout(Stdio::piped())
         .output()?;
 
+    assert!(output.status.success(), "could not format {path:?}");
     let output = String::from_utf8(output.stdout)?;
 
     Ok(output)
@@ -175,7 +177,7 @@ fn corpus_external() -> miette::Result<()> {
                 return None;
             }
 
-            match format(&source) {
+            match format(&f) {
                 Err(_) => Some((f.to_string(), false)),
                 Ok(_) => Some((f.to_string(), true)),
             }
