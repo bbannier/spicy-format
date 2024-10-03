@@ -381,7 +381,11 @@
 (unit_if_else
   "{" @append_indent_start @append_hardline
   .
-  (field_decl)* ; List explicitly so we match the correct {} pair.
+  ; List explicitly so we match the correct {} pair.
+  [
+   (comment)
+   (field_decl)
+  ]*
   .
   "}" @prepend_indent_end @prepend_hardline
 )
