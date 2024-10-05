@@ -386,16 +386,15 @@
 ; Unit `if`/`else` blocks.
 (unit_if_else
   "if" @append_space
-  "{" @prepend_space
-  ("else" @prepend_space @append_space)?
+  "{" @prepend_space ("else" @prepend_space @append_space)?
 )
 (unit_if_else
   "{" @append_indent_start @append_hardline
   .
   ; List explicitly so we match the correct {} pair.
   [
-   (comment)
-   (field_decl)
+    (comment)
+    (field_decl)
   ]*
   .
   "}" @prepend_indent_end @prepend_hardline
