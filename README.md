@@ -1,10 +1,7 @@
 # spicy-format
 
-This provides a formatter for the [Spicy
+This provides an opinionated source code formatter for the [Spicy
 language](https://docs.zeek.org/projects/spicy/en/latest/).
-
-⚠ The implementation is very much a work in progress at the moment, and should
-be considered **ALPHA QUALITY**.
 
 ## Installation
 
