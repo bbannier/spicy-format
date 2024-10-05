@@ -313,9 +313,20 @@
 
 (function_decl "function" @append_space)
 
-(
-  ; Use softlines since we want to format var decls in loop headers on a single line.
-  (var_decl) @append_spaced_softline @prepend_spaced_softline
+; Force newlines after var_decl in various block-like contexts.
+(block
+  (var_decl) @append_hardline
+  .
+  (comment)? @do_nothing
+)
+(module
+  (var_decl) @append_hardline
+  .
+  (comment)? @do_nothing
+)
+(type_decl
+  "unit"
+  (var_decl) @append_hardline
   .
   (comment)? @do_nothing
 )
@@ -434,6 +445,12 @@
   "while" @append_space
   "(" @prepend_space
   ")" @append_space
+)
+
+; Force single expression body on a new line; block bodies do this via block formatting already.
+(while
+  "while"
+  (statement (block)* @do_nothing) @prepend_indent_start @prepend_hardline @append_indent_end
 )
 
 (list_comp
