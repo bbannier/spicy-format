@@ -141,6 +141,8 @@ fn corpus_external() -> miette::Result<()> {
         let deny_list = [
             "tools/preprocessor.spicy",
             "types/unit/hooks-fail.spicy",
+            // Unsupported legacy syntax.
+            "types/vector/legacy-syntax-fail.spicy",
             // Fails due to parser ambiguity due to https://github.com/zeek/spicy/issues/1566.
             "types/unit/switch-attributes-fail.spicy",
         ];
