@@ -21,3 +21,8 @@ type MoveCloser = struct {
 type X = struct {
     x: uint8;
 };
+
+# Struct fields do no need to have a parseable type.
+type X = struct {
+    a: vector<uint16>;
+};
