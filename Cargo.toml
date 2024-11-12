@@ -35,3 +35,8 @@ opt-level = "z"
 # The profile that 'cargo dist' will build with
 [profile.dist]
 inherits = "release"
+
+[lints.clippy]
+pedantic = { level = "deny", priority = -1 }
+missing_errors_doc = "allow"
+missing_panics_doc = "allow"

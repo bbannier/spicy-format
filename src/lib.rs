@@ -1,6 +1,3 @@
-#![allow(clippy::missing_errors_doc)]
-#![allow(clippy::missing_panics_doc)]
-
 use {
     miette::{Diagnostic, Result, SourceOffset, SourceSpan},
     std::string::FromUtf8Error,
