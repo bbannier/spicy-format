@@ -13,7 +13,7 @@ topiary-core = { git = "https://github.com/tweag/topiary.git", rev = "2be4b840e0
 topiary-tree-sitter-facade = { git = "https://github.com/tweag/topiary.git", rev = "2be4b840e008f659a5b5950f152275b500c4dfcd" }
 clap = { version = "4.5.21", features = ["std", "derive", "help"], default-features = false }
 thiserror = "2.0.3"
-miette = { version = "7.2.0", default-features = false, features = ["derive", "fancy"] }
+miette = { version = "7.4.0", default-features = false, features = ["derive", "fancy"] }
 rayon = "1.10.0"
 
 [dev-dependencies]
@@ -24,7 +24,7 @@ tempfile = { version = "3.14.0", default-features = false }
 walkdir = "2.5.0"
 
 [build-dependencies]
-vergen-git2 = { version = "1.0.1", default-features = false }
+vergen-git2 = { version = "1.0.2", default-features = false }
 
 [profile.release]
 panic = "abort"
