@@ -87,15 +87,18 @@ fn main() -> Result<()> {
                 };
 
                 if args.inplace {
-                    if let Err(e) = std::fs::write(input_file, formatted)
-                        .map_err(Error::Io)
-                        .wrap_err(format!(
-                            "while writing output file {}",
-                            input_file.display()
-                        ))
-                    {
-                        eprintln!("{e:?}");
-                        return Some(input_file);
+                    // Only write output file if we made any changes.
+                    if source != formatted {
+                        if let Err(e) = std::fs::write(input_file, formatted)
+                            .map_err(Error::Io)
+                            .wrap_err(format!(
+                                "while writing output file {}",
+                                input_file.display()
+                            ))
+                        {
+                            eprintln!("{e:?}");
+                            return Some(input_file);
+                        }
                     }
                 } else {
                     // When printing the result do not insert extra newlines.

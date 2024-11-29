@@ -2,10 +2,11 @@ use std::{
     collections::HashMap,
     io::{Read, Write},
     path::{Path, PathBuf},
-    process::{Command, Stdio},
+    process::{Command, Output, Stdio},
 };
 
 use assert_cmd::cargo::CommandCargoExt;
+use filetime::FileTime;
 use miette::miette;
 use rayon::prelude::*;
 use tempfile::NamedTempFile;
@@ -40,6 +41,23 @@ fn trailing_newline_file() -> Result<()> {
     let stdout = String::from_utf8(cmd.stdout)?;
 
     assert_eq!(stdout, "1;\n");
+    Ok(())
+}
+
+#[test]
+fn do_not_touch_unmodified() -> Result<()> {
+    let input = NamedTempFile::new()?;
+    filetime::set_file_mtime(input.path(), FileTime::zero())?;
+
+    let mut cmd = Command::cargo_bin("spicy-format")?;
+    let Output { status, .. } = cmd.arg(input.path()).arg("-i").output()?;
+    assert!(status.success());
+
+    let metadata = std::fs::metadata(input.path())?;
+    let mtime = FileTime::from_last_modification_time(&metadata);
+
+    assert_eq!(mtime, FileTime::zero());
+
     Ok(())
 }
 
