@@ -241,8 +241,11 @@
 
 (optional) @prepend_space
 
-(assert
-  (_) @prepend_space (":" @prepend_space @append_space (_))?
+(assert (_) @prepend_space)
+
+(condition_check
+  (_) @append_space
+  ":" @append_space
 )
 
 ; Set operations

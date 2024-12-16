@@ -23,8 +23,8 @@ const c = 42;
 
 1;
 assert True;
-assert-exception 1;
 assert True: "foo";
+assert-exception 1 : "foo";
 
 True ? 1 : 2;
 

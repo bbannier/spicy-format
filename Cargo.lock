@@ -1333,7 +1333,7 @@ checksum = "c199356c799a8945965bb5f2c55b2ad9d9aa7c4b4f6e587fe9dea0bc715e5f9c"
 [[package]]
 name = "tree-sitter-spicy"
 version = "0.0.1"
-source = "git+https://github.com/bbannier/tree-sitter-spicy#b7df9dae90e92d84a09eb9d74acba58027598f4c"
+source = "git+https://github.com/bbannier/tree-sitter-spicy#764f933738022e7b7bc19f46d4d7f6d9ae22eaab"
 dependencies = [
  "cc",
  "tree-sitter-language",
