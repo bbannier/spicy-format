@@ -13,7 +13,7 @@ topiary-core = { git = "https://github.com/tweag/topiary.git", rev = "1dbf717ed4
 topiary-tree-sitter-facade = { git = "https://github.com/tweag/topiary.git", rev = "1dbf717ed4b8b4347dd96331d0cea64d3a23f9b3" }
 clap = { version = "4.5.27", features = ["std", "derive", "help"], default-features = false }
 thiserror = "2.0.11"
-miette = { version = "7.4.0", default-features = false, features = ["derive", "fancy"] }
+miette = { version = "7.5.0", default-features = false, features = ["derive", "fancy"] }
 rayon = "1.10.0"
 
 [dev-dependencies]
