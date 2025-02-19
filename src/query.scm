@@ -329,7 +329,10 @@
 )
 (type_decl
   "unit"
-  (var_decl) @append_hardline
+  [
+   (field_decl ";")
+   (var_decl)
+  ] @append_hardline
   .
   (comment)? @do_nothing
 )
