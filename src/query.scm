@@ -43,13 +43,14 @@
   "}" @prepend_indent_end @prepend_hardline
 )
 
-(
+(type_decl
   "unit"
   [
     (field_decl)
+    (var_decl)
     (sink_decl)
     (unit_switch)
-  ] @append_empty_softline
+  ] @append_hardline
   .
   (comment)? @do_nothing
 )
@@ -324,15 +325,6 @@
 )
 (module
   (var_decl) @append_hardline
-  .
-  (comment)? @do_nothing
-)
-(type_decl
-  "unit"
-  [
-   (field_decl ";")
-   (var_decl)
-  ] @append_hardline
   .
   (comment)? @do_nothing
 )

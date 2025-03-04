@@ -1,5 +1,12 @@
 type Foo = unit { a: uint8; b: bytes &eod; c: /re/;};
 
+# Regression test for #192.
+public type Bar = unit {
+    a: uint64;
+
+    on %done { print self; }
+};
+
 type Z = unit {
 var a: uint8;
 };
