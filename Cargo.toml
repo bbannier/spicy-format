@@ -9,12 +9,12 @@ repository = "https://github.com/bbannier/spicy-format"
 
 [dependencies]
 tree-sitter-spicy = { git = "https://github.com/bbannier/tree-sitter-spicy" }
-topiary-core = { git = "https://github.com/tweag/topiary.git", rev = "1dbf717ed4b8b4347dd96331d0cea64d3a23f9b3" }
-topiary-tree-sitter-facade = { git = "https://github.com/tweag/topiary.git", rev = "1dbf717ed4b8b4347dd96331d0cea64d3a23f9b3" }
 clap = { version = "4.5.31", features = ["std", "derive", "help"], default-features = false }
 thiserror = "2.0.12"
 miette = { version = "7.5.0", default-features = false, features = ["derive", "fancy"] }
 rayon = "1.10.0"
+topiary-core = { version = "0.6.0", default-features = false }
+topiary-tree-sitter-facade = { version = "0.6.0", default-features = false }
 
 [dev-dependencies]
 assert_cmd = { version = "2.0.16", default-features = false }
