@@ -123,7 +123,7 @@ pub fn format(
             }
             _ => FormatError::Unknown,
         })?;
-    };
+    }
 
     let output = String::from_utf8(output).map_err(FormatError::UTF8)?;
 
