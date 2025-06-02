@@ -9,7 +9,7 @@ repository = "https://github.com/bbannier/spicy-format"
 
 [dependencies]
 tree-sitter-spicy = { git = "https://github.com/bbannier/tree-sitter-spicy" }
-clap = { version = "4.5.38", features = ["std", "derive", "help"], default-features = false }
+clap = { version = "4.5.39", features = ["std", "derive", "help"], default-features = false }
 thiserror = "2.0.12"
 miette = { version = "7.6.0", default-features = false, features = ["derive", "fancy"] }
 rayon = "1.10.0"
