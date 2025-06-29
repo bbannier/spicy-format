@@ -1,6 +1,6 @@
 use {
     clap::Parser,
-    miette::{ensure, Context, Diagnostic, Result},
+    miette::{Context, Diagnostic, Result, ensure},
     rayon::iter::{IntoParallelRefIterator, ParallelIterator},
     spicy_format::format,
     std::{io::Read, path::PathBuf},
