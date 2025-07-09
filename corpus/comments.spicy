@@ -1,3 +1,9 @@
+# Just a comment.
+
+## This is fine.
+##
+## More stuff here.
+
 public type A = B;         # Should stay here.
 
 public type A = unit {};   # Should stay here.
