@@ -4,6 +4,9 @@
 ##
 ## More stuff here.
 
+#
+const a = 1;
+
 public type A = B;         # Should stay here.
 
 public type A = unit {};   # Should stay here.
@@ -13,3 +16,17 @@ function f() {}            # Should stay here.
 
 if (True) # Should stay here.
 	1;
+
+type X = unit {
+  switch (a) {
+
+    # Comment
+
+    cond     -> A:     uint8
+    ;
+
+    # Comment
+
+  };
+
+};

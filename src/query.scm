@@ -297,12 +297,19 @@
 
 (visibility) @append_space
 
-(comment
-) @prepend_input_softline @append_input_softline @append_hardline
+; Need an outer node for below leaf rule
+(_
+  (comment) @prepend_input_softline @append_hardline
+)
 ; `comment` is an `extra` node so it can appear anywhere, even inside a
 ; `comment_body`. Avoid formatting at all if we have a "nested comment"
 ; like in `##`.
-(comment (comment)) @leaf
+(comment
+  [
+    (comment)
+    (comment_body)
+  ]
+) @leaf
 
 (attribute) @prepend_space
 (attribute (_) @append_antispace "=" @append_antispace (_))
