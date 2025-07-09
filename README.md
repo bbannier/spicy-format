@@ -12,7 +12,7 @@ release](https://github.com/bbannier/spicy-format/releases/latest) and run the
 mentioned installation script, e.g.,
 
 ```console
-curl --proto '=https' --tlsv1.2 -LsSf https://github.com/bbannier/spicy-format/releases/download/v0.24.2/spicy-format-installer.sh | sh
+curl --proto '=https' --tlsv1.2 -LsSf https://github.com/bbannier/spicy-format/releases/download/v0.25.0/spicy-format-installer.sh | sh
 ```
 
 Follow the printed instructions. This will install both the formatter
