@@ -216,7 +216,17 @@ type X = unit {
     if (True) {
             # Can have comment here.
             a1: bytes &size=2;
+            # And here.
             a1: bytes &size=2;
         } else {
     } &max-size=42 &requires=True;
+};
+
+# Mix of conditional and unit switch.
+type X = unit {
+    if (1) {
+        switch (1) {
+            1 -> : uint8;
+        };
+    };
 };

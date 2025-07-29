@@ -405,12 +405,15 @@
   [
     (comment)
     (field_decl)
+    (unit_switch)
   ]*
   .
   "}" @prepend_indent_end @prepend_hardline
 )
 (unit_if_else
-  (field_decl) @append_empty_softline
+  [
+   (field_decl) (unit_switch)
+  ] @append_empty_softline
   .
   (comment)? @do_nothing
 )
