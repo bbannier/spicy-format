@@ -1078,7 +1078,7 @@ checksum = "3c5e1a9a646d36c3599cd173a41282daf47c44583ad367b8e6837255952e5c67"
 
 [[package]]
 name = "spicy-format"
-version = "0.25.0"
+version = "0.26.0"
 dependencies = [
  "assert_cmd",
  "clap",
