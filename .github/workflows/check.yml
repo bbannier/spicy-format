@@ -32,6 +32,8 @@ jobs:
         with:
           submodules: recursive
       - uses: moonrepo/setup-rust@v1
+        with:
+          components: clippy,rustfmt
       - name: Install tree-sitter-cli
         run: |
           npm install -g tree-sitter-cli
