@@ -16,6 +16,11 @@ rayon = "1.11.0"
 topiary-core = { version = "0.6.1", default-features = false }
 topiary-tree-sitter-facade = { version = "0.6.2", default-features = false }
 
+# # Pin a dependency of topiary-core. We need this since
+# prettydiff broke semver with prettydiff-0.8.2, see
+# https://github.com/oli-obk/prettydiff/issues/28.
+prettydiff = { version = "=0.8.1", default-features = false }
+
 [dev-dependencies]
 assert_cmd = { version = "2.0.17", default-features = false }
 filetime = { version = "0.2.26", default-features = false }
