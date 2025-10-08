@@ -20,3 +20,8 @@ function f() {
 function f() {
     return;
 }
+
+if (True)
+    # Multiline comment. The comment and the
+    # following block should be indented.
+    1;
