@@ -34,11 +34,7 @@ jobs:
       - uses: moonrepo/setup-rust@v1
         with:
           components: clippy,rustfmt
-      - name: Install tree-sitter-cli
-        run: |
-          npm install -g tree-sitter-cli
-      - uses: actions/setup-python@v6
-      - uses: pre-commit/action@v3.0.1
+      - uses: j178/prek-action@v1
 
   uv:
     runs-on: ubuntu-latest
