@@ -94,25 +94,26 @@ pub fn format(
                 Some(e) => format!("{m}: {e}"),
             }),
             FormatterError::Idempotence => FormatError::Idempotency,
-            FormatterError::Parsing {
-                start_line,
-                start_column,
-                end_line,
-                end_column,
-            } => {
+            FormatterError::Parsing(span) => {
                 let start = SourceOffset::from_location(
                     input,
-                    start_line
+                    span.start_point()
+                        .row()
                         .try_into()
                         .expect("cannot represent u32 as usize"),
-                    start_column
+                    span.start_point()
+                        .column()
                         .try_into()
                         .expect("cannot represent u32 as usize"),
                 );
                 let end = SourceOffset::from_location(
                     input,
-                    end_line.try_into().expect("cannot represent u32 as usize"),
-                    end_column
+                    span.end_point()
+                        .row()
+                        .try_into()
+                        .expect("cannot represent u32 as usize"),
+                    span.end_point()
+                        .column()
                         .try_into()
                         .expect("cannot represent u32 as usize"),
                 );
