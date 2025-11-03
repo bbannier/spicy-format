@@ -5,7 +5,7 @@ use std::{
     process::{Command, Output, Stdio},
 };
 
-use assert_cmd::cargo::CommandCargoExt;
+use assert_cmd::cargo;
 use filetime::FileTime;
 use miette::miette;
 use rayon::prelude::*;
@@ -15,10 +15,10 @@ type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
 #[test]
 fn trailing_newline_stdin() -> Result<()> {
-    let mut cmd = Command::cargo_bin("spicy-format")?;
-    let cmd = cmd.stdin(Stdio::piped()).stdout(Stdio::piped());
-
-    let mut child = cmd.spawn()?;
+    let mut child = Command::new(cargo::cargo_bin!())
+        .stdin(Stdio::piped())
+        .stdout(Stdio::piped())
+        .spawn()?;
 
     let mut stdin = child.stdin.as_ref().unwrap();
     stdin.write("1;\n".as_bytes())?;
@@ -35,8 +35,10 @@ fn trailing_newline_file() -> Result<()> {
     let mut input = NamedTempFile::new()?;
     input.write("1;\n".as_bytes())?;
 
-    let mut cmd = Command::cargo_bin("spicy-format")?;
-    let cmd = cmd.arg(input.path()).stdout(Stdio::piped()).output()?;
+    let cmd = Command::new(cargo::cargo_bin!())
+        .arg(input.path())
+        .stdout(Stdio::piped())
+        .output()?;
 
     let stdout = String::from_utf8(cmd.stdout)?;
 
@@ -49,8 +51,10 @@ fn do_not_touch_unmodified() -> Result<()> {
     let input = NamedTempFile::new()?;
     filetime::set_file_mtime(input.path(), FileTime::zero())?;
 
-    let mut cmd = Command::cargo_bin("spicy-format")?;
-    let Output { status, .. } = cmd.arg(input.path()).arg("-i").output()?;
+    let Output { status, .. } = Command::new(cargo::cargo_bin!())
+        .arg(input.path())
+        .arg("-i")
+        .output()?;
     assert!(status.success());
 
     let metadata = std::fs::metadata(input.path())?;
@@ -67,7 +71,7 @@ where
     P: Into<PathBuf>,
 {
     let path = path.into();
-    let output = Command::cargo_bin("spicy-format")?
+    let output = Command::new(cargo::cargo_bin!())
         .arg("--reject-parse-errors")
         .arg(&path)
         .stdout(Stdio::piped())
