@@ -125,5 +125,6 @@ fn corpus_external() -> miette::Result<()> {
 fn cli_tests() {
     trycmd::TestCases::new()
         .case("tests/cmd/*.toml")
+        .case("README.md")
         .default_bin_name("spicy-format");
 }

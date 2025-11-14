@@ -1,19 +1,12 @@
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v6.0.0
-    hooks:
-      - id: trailing-whitespace
-      - id: end-of-file-fixer
-      - id: check-yaml
-      - id: check-added-large-files
   - repo: https://github.com/doublify/pre-commit-rust
     rev: v1.0
     hooks:
       - id: fmt
       - id: clippy
-        args: ["--all", "--all-features"]
+        args: [--all, --all-features]
       - id: cargo-check
   - repo: https://github.com/jorisroovers/gitlint
     rev: v0.19.1
@@ -31,15 +24,16 @@ repos:
     rev: v6.0.0
     hooks:
       - id: trailing-whitespace
-        exclude: "^tests/Baseline"
+        exclude: ^tests/Baseline|^README.md
       - id: end-of-file-fixer
-        exclude: "^tests/Baseline|^doc/autogen|^doc/_static"
+        exclude: ^tests/Baseline|^doc/autogen|^doc/_static
       - id: check-yaml
       - id: check-added-large-files
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v4.0.0-alpha.8
     hooks:
       - id: prettier
-        stages: ["pre-commit"]
+        stages: [pre-commit]
+        exclude: ^README.md
 
 exclude: .github/workflows/release.yml|tests/cmd/do_not_touch_unmodified.in/.*

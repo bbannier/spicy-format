@@ -3,6 +3,34 @@
 This provides an opinionated source code formatter for the [Spicy
 language](https://docs.zeek.org/projects/spicy/en/latest/).
 
+## Synopsis
+
+```console
+$ spicy-format --help
+Usage: 
+
+Arguments:
+  [INPUT_FILES]...
+          if not provided read input from stdin
+
+Options:
+  -s, --skip-idempotence
+          skip idempotency check
+
+  -r, --reject-parse-errors
+          reject inputs with parse errors
+
+  -i, --inplace
+          format file in place
+
+  -h, --help
+          Print help (see a summary with '-h')
+
+  -V, --version
+          Print version
+
+```
+
 ## Installation
 
 ### Prebuilt binaries
@@ -11,9 +39,7 @@ Navigate to the [latest
 release](https://github.com/bbannier/spicy-format/releases/latest) and run the
 mentioned installation script, e.g.,
 
-```console
-curl --proto '=https' --tlsv1.2 -LsSf https://github.com/bbannier/spicy-format/releases/download/v0.25.0/spicy-format-installer.sh | sh
-```
+    curl --proto '=https' --tlsv1.2 -LsSf https://github.com/bbannier/spicy-format/releases/download/v0.25.0/spicy-format-installer.sh | sh
 
 Follow the printed instructions. This will install both the formatter
 `spicy-format` itself as well as an updater script `spicy-format-update` which
@@ -30,9 +56,7 @@ setting one up.
 
 You can then install the project with
 
-```console
-cargo install --locked --git https://github.com/bbannier/spicy-format
-```
+    cargo install --locked --git https://github.com/bbannier/spicy-format
 
 It is **strongly suggested** to use `--locked` to use dependency versions locked
 in the project.
@@ -61,25 +85,23 @@ To instead inspect the full parse trees of code samples check out
 [tree-sitter-spicy](https://github.com/bbannier/tree-sitter-spicy) and use it
 to parse the code, e.g.,
 
-```console
-# Get Spicy tree-sitter grammar.
-git clone https://github.com/bbannier/tree-sitter-spicy
-$ cd tree-sitter-spicy
+    # Get Spicy tree-sitter grammar.
+    git clone https://github.com/bbannier/tree-sitter-spicy
+    $ cd tree-sitter-spicy
 
-# If needed install the tree-sitter CLI.
-$ npm install tree-sitter
+    # If needed install the tree-sitter CLI.
+    $ npm install tree-sitter
 
-# Use tree-sitter to parse a source file.
-$ tree-sitter parse hello.spicy
-(module [0, 0] - [3, 0]
-  entities: (module_decl [0, 0] - [0, 13]
-    name: (ident [0, 7] - [0, 12]
-      (name [0, 7] - [0, 12])))
-  entities: (statement [2, 0] - [2, 18]
-    (print [2, 0] - [2, 18]
-      (expression [2, 6] - [2, 17]
-        (string [2, 6] - [2, 17])))))
-```
+    # Use tree-sitter to parse a source file.
+    $ tree-sitter parse hello.spicy
+    (module [0, 0] - [3, 0]
+      entities: (module_decl [0, 0] - [0, 13]
+        name: (ident [0, 7] - [0, 12]
+          (name [0, 7] - [0, 12])))
+      entities: (statement [2, 0] - [2, 18]
+        (print [2, 0] - [2, 18]
+          (expression [2, 6] - [2, 17]
+            (string [2, 6] - [2, 17])))))
 
 Use this information to write dedicated formatter queries.
 
@@ -96,7 +118,8 @@ tree-sitter-spicy = { git = "https://github.com/bbannier/tree-sitter-spicy" }
 ...
 ```
 
-You can specify a different repository here, or enforce a specific revision, e.g.,
+You can specify a different repository here, or enforce a specific revision,
+e.g.,
 
 ```toml
 tree-sitter-spicy = { git = "https://github.com/MY_FORK/tree-sitter-spicy", rev = "b9958baeda3dc77fa94af2ca2cd84723bd532d08" }
@@ -116,9 +139,7 @@ tree-sitter-spicy = { path = "path/to/local/version" }
 To run formatting against an external corpus run the test suite with
 `SPICY_FORMAT_EXTERNAL_CORPUS` set.
 
-```console
-SPICY_FORMAT_EXTERNAL_CORPUS=<PATH TO SPICY CORPUS> cargo t corpus_external
-```
+    SPICY_FORMAT_EXTERNAL_CORPUS=<PATH TO SPICY CORPUS> cargo t corpus_external
 
 The suite automatically filters out of some files in the Spicy test suite with
 known unsupported constructs.
