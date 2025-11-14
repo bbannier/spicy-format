@@ -1,0 +1,8 @@
+args = "input.spicy"
+
+stdout = """
+1;
+"""
+
+stderr = ""
+status.code = 0

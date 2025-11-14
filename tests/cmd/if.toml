@@ -1,0 +1,69 @@
+stdin = """
+if (1)
+    1;
+
+if (1) {
+1;
+}
+
+if (True)
+{
+1;
+}
+else if (False) {2;}
+else { 3; }
+
+if (True)
+        1;
+else if (False) 2;
+else 2;
+
+if (1 in [1,2,3])
+print 1;
+
+if (1 !in [1,2,3])
+print 1;
+
+if (True)
+# Multiline comment. The comment and the
+# following block should be indented.
+1;
+"""
+
+stdout = """
+if (1)
+    1;
+
+if (1) {
+    1;
+}
+
+if (True) {
+    1;
+} else if (False) {
+    2;
+} else {
+    3;
+}
+
+if (True)
+    1;
+else if (False)
+    2;
+else
+    2;
+
+if (1 in [1, 2, 3])
+    print 1;
+
+if (1 !in [1, 2, 3])
+    print 1;
+
+if (True)
+    # Multiline comment. The comment and the
+    # following block should be indented.
+    1;
+"""
+
+stderr = ""
+status.code = 0

@@ -42,4 +42,4 @@ repos:
       - id: prettier
         stages: ["pre-commit"]
 
-exclude: .github/workflows/release.yml
+exclude: .github/workflows/release.yml|tests/cmd/do_not_touch_unmodified.in/.*

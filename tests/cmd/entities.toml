@@ -1,0 +1,20 @@
+stdin = """
+module x;
+
+
+public type X = unit {
+};
+
+public type E = enum {  };
+"""
+
+stdout = """
+module x;
+
+public type X = unit {};
+
+public type E = enum {};
+"""
+
+stderr = ""
+status.code = 0

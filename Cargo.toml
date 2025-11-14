@@ -22,6 +22,7 @@ assert_cmd = { version = "2.1.1", default-features = false }
 filetime = { version = "0.2.26", default-features = false }
 pretty_assertions = "1.4.1"
 tempfile = { version = "3.23.0", default-features = false }
+trycmd = "0.15.10"
 walkdir = "2.5.0"
 
 [build-dependencies]

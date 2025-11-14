@@ -1,0 +1,18 @@
+stdin = """
+module id;
+
+global x= 1;
+
+id::x;
+"""
+
+stdout = """
+module id;
+
+global x = 1;
+
+id::x;
+"""
+
+stderr = ""
+status.code = 0

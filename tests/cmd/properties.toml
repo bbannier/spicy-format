@@ -1,0 +1,22 @@
+stdin = """
+module foo;
+
+%byte-order = "foo";
+
+type X = unit {
+    %mime-type=   "foo/bar";
+};
+"""
+
+stdout = """
+module foo;
+
+%byte-order = "foo";
+
+type X = unit {
+    %mime-type = "foo/bar";
+};
+"""
+
+stderr = ""
+status.code = 0

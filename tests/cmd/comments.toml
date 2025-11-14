@@ -1,0 +1,67 @@
+stdin = """
+# Just a comment.
+
+## This is fine.
+##
+## More stuff here.
+
+#
+const a = 1;
+
+public type A = B;         # Should stay here.
+
+public type A = unit {};   # Should stay here.
+public type A = struct {}; # Should stay here.
+
+function f() {}            # Should stay here.
+
+if (True) # Should stay here.
+	1;
+
+type X = unit {
+  switch (a) {
+
+    # Comment
+
+    cond     -> A:     uint8
+    ;
+
+    # Comment
+
+  };
+
+};
+"""
+
+stdout = """
+# Just a comment.
+
+## This is fine.
+##
+## More stuff here.
+
+#
+const a = 1;
+
+public type A = B; # Should stay here.
+
+public type A = unit {}; # Should stay here.
+public type A = struct {}; # Should stay here.
+
+function f() {} # Should stay here.
+
+if (True) # Should stay here.
+    1;
+
+ type X = unit {
+    switch (a) {
+
+        # Comment
+        cond -> A: uint8;
+
+        # Comment
+    };
+};
+"""
+stderr = ""
+status.code = 0

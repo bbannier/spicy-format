@@ -1,3 +1,27 @@
+stdin = """
+module foo;
+
+type X = unit {
+	x: bitfield(8) {
+		a: 0..1; # foo
+		b: 0..8; # bar
+	};
+};
+
+type X =   bitfield(8) {
+    a: 0..3=2;
+    b: 4..7;
+    c: 7     = 1;
+  };
+
+type X = unit {
+	:bitfield(8) { a: 0..1; b: 0..7; } &bit-order=spicy::BitOrder::MSB0;
+	:bitfield(8) { c: 0..1; d: 0..7; };
+	:bitfield(8) { e: 0..1; f: 0..7; };
+};
+"""
+
+stdout = """
 module foo;
 
 type X = unit {
@@ -27,3 +51,7 @@ type X = unit {
         f: 0..7;
     };
 };
+"""
+
+stderr = ""
+status.code = 0

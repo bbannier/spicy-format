@@ -1,0 +1,42 @@
+stdin = """
+throw   "yikes" ;
+
+print 1;
+print;
+
+function f() { return; }
+
+global x=1;
+local y=1;
+{
+local z = spicy::zlib_init(-15); # Negative for deflating raw data, 15 maximum window size.
+}
+
+assert True;
+assert True: "foo";
+assert-exception 1 : "foo";
+"""
+
+stdout = """
+throw "yikes";
+
+print 1;
+print;
+
+function f() {
+    return;
+}
+
+global x = 1;
+local y = 1;
+{
+    local z = spicy::zlib_init(-15); # Negative for deflating raw data, 15 maximum window size.
+}
+
+assert True;
+assert True : "foo";
+assert-exception 1 : "foo";
+"""
+
+stderr = ""
+status.code = 0

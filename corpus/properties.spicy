@@ -1,7 +1,0 @@
-module foo;
-
-%byte-order = "foo";
-
-type X = unit {
-    %mime-type=   "foo/bar";
-};

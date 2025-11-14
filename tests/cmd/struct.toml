@@ -1,0 +1,66 @@
+stdin = """
+module X;
+
+type Shape=struct{
+height: uint8;
+width: uint8;
+};
+
+
+
+
+type Circle =      struct     {
+  diameter: uint8;
+};
+type SticksToCircle = struct {
+diameter:uint8;
+};
+
+
+
+
+
+type MoveCloser = struct
+{
+a:uint8;b:uint8;c:uint8;
+    };
+
+type X = struct {x: uint8;};
+
+# Struct fields do no need to have a parseable type.
+type X = struct { a:vector<uint16>  ; };
+"""
+
+stdout = """
+module X;
+
+type Shape = struct {
+    height: uint8;
+    width: uint8;
+};
+
+type Circle = struct {
+    diameter: uint8;
+};
+type SticksToCircle = struct {
+    diameter: uint8;
+};
+
+type MoveCloser = struct {
+    a: uint8;
+    b: uint8;
+    c: uint8;
+};
+
+type X = struct {
+    x: uint8;
+};
+
+# Struct fields do no need to have a parseable type.
+type X = struct {
+    a: vector<uint16>;
+};
+"""
+
+stderr = ""
+status.code = 0

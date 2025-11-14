@@ -1,0 +1,21 @@
+stdin = """
+# Some comment.
+
+
+module foo;
+
+import spicy;
+import spicy;   # With comment.
+"""
+
+stdout = """
+# Some comment.
+
+module foo;
+
+import spicy;
+import spicy; # With comment.
+"""
+
+stderr = ""
+status.code = 0

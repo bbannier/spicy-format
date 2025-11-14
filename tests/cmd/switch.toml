@@ -1,0 +1,57 @@
+stdin = """
+switch (1)
+{case 1: "a";
+case 2:
+# Comment.
+"b";
+case 3  , 4 :
+"c";
+case 5: {
+"d";
+}
+case 6: { "e"; }
+    case 7,8,9: {
+        "e";
+    }
+}
+
+switch (local x = 1) {
+case 1: {}
+# Foo
+case 2: {}
+case 3: {}
+}
+"""
+
+stdout = """
+switch (1) {
+    case 1: "a";
+    case 2:
+        # Comment.
+        "b";
+    case 3,
+         4:
+        "c";
+    case 5: {
+        "d";
+    }
+    case 6: {
+        "e";
+    }
+    case 7,
+         8,
+         9: {
+        "e";
+    }
+}
+
+switch (local x = 1) {
+    case 1: {}
+    # Foo
+    case 2: {}
+    case 3: {}
+}
+"""
+
+stderr = ""
+status.code = 0

@@ -1,3 +1,203 @@
+stdin = """
+type Foo = unit { a: uint8; b: bytes &eod; c: /re/;};
+
+# Regression test for #192.
+public type Bar = unit {
+    a: uint64;
+
+    on %done { print self; }
+};
+
+type Z = unit {
+var a: uint8;
+};
+type Y = unit {};
+public type X = unit {
+# This is a foo.
+    ax: bytes {}
+    xs: bytes &eod { print $$; }
+    ys: bytes &eod; # The ys.
+    zs: bytes  %debug {}
+
+
+    on zs %debug {}
+
+
+    on %done { print self; }
+};
+
+type Z = unit {
+sink s;
+on %init{self.s.connect_filter(new Z);}
+};
+
+type X = unit {
+a: uint8;
+
+switch {
+->: b"" { a;}
+->: b""; # foo
+->: b"" {a;a;}
+};
+};
+
+type X = unit{
+on %init {}
+b: uint8 {print $$;}
+c: bytes &size    = 1 ;
+};
+
+type X = unit(){};
+
+type X = unit(inout n: uint8) {};
+
+type X = unit {
+    : uint8 if (True);
+};
+
+type X = unit () {};
+
+type X = unit (x: X) {};
+
+type FOO = unit { x: uint8; };
+
+type X = unit {
+    var x: uint64 &optional;
+    on %init { unset self.x;}
+};
+
+type X = unit {
+    x: uint8;
+    on x priority=100 {}
+};
+
+type X = unit {
+    : skip /a/;
+};
+
+type X = unit {
+    xs: uint8[] foreach { print $$; }
+    xs: uint8[] foreach { $$; } { $$; }
+    xs: uint8[] foreach {
+print $$;
+    } { print $$; }
+    xs: uint8[] foreach {
+print $$;
+    } {
+    print $$; }
+};
+
+type X = unit {
+    xs: X()[];
+};
+
+type X = unit {
+  switch (1) {
+    # Foo.
+    1     -> : uint8
+                                                  &parse-from=b"";
+    1     -> :      uint8
+                                                  &parse-from=b"";
+    2 -> {
+    a: uint8; : uint8; # anon.
+    }
+  };
+
+  # Bar.
+};
+
+public type X = unit {
+    switch (1+1) {
+        1 -> a : b"1";
+        * -> : void;
+    };
+};
+
+type X = unit {
+  switch (True) {
+    * -> {
+      switch (True) {
+        * -> x: uint8;
+      };
+    }
+  };
+};
+
+type X = unit(a: uint8) {
+    switch (a) {
+    1,
+    2,
+    3 -> : skip uint8;
+    };
+};
+
+# Sink syntax.
+public type X = unit {
+    : bytes &eod -> self.data;
+    sink data;
+    };
+
+type HeuristicContent = unit {
+    : bytes &eod -> other.sink_;
+};
+
+# Attributes on unit switch.
+type X = unit {
+    switch ( 1 ) {
+        * -> : void;
+    # We can currently only format if an attribute with value is in last place.
+    } &eod &until &size=1;
+};
+
+type X = unit {
+    switch ( 1 ) {
+        * -> : void;
+    }     if  (False);
+};
+
+type X = unit {
+    switch {
+        -> : uint8;
+    } if(True) ;
+};
+
+# External hook implementation.
+on X::Y::%done {1;2;
+}
+on X::Y::%error {}
+
+# Debug hooks.
+on X::Y::%done %debug {}
+on X::Y::%error (e: msg )%debug {}
+
+# Error hooks.
+type Test = unit {
+    b: b"B" %error {}
+    on b %error {}
+};
+on Test::b(msg: string) %error {}
+
+# Unit if/else blocks.
+type X = unit {
+    if (True) {
+             a1: bytes &size=2;
+    } &max-size=42 &requires=True;
+
+    if (True) {
+# Can have comment here.
+             a1: bytes &size=2;
+# And here.
+         a1: bytes &size=2;
+    } else {} &max-size=42 &requires=True;
+};
+
+# Mix of conditional and unit switch.
+type X = unit {
+if (1) { switch (1) { 1 -> : uint8; }; };
+};
+"""
+
+stdout = """
 type Foo = unit {
     a: uint8;
     b: bytes &eod;
@@ -230,3 +430,7 @@ type X = unit {
         };
     };
 };
+"""
+
+stderr = ""
+status.code = 0

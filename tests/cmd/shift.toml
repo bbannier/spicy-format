@@ -1,0 +1,20 @@
+stdin = """
+module shift;
+
+global x = 0xff;
+
+print (x & 0xf)>>3;
+print (x & 0xf0)<<3;
+"""
+
+stdout = """
+module shift;
+
+global x = 0xff;
+
+print (x & 0xf) >> 3;
+print (x & 0xf0) << 3;
+"""
+
+stderr = ""
+status.code = 0

@@ -1,0 +1,14 @@
+stdin = """
+module foo;
+
+%spicy-version   = "10.0"  ; # foo.
+"""
+
+stdout = """
+module foo;
+
+%spicy-version = "10.0"; # foo.
+"""
+
+stderr = ""
+status.code = 0
