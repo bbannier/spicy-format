@@ -1,0 +1,25 @@
+args = "--reject-parse-errors"
+
+stdin = """
+1;
+1 + 2
+2;
+"""
+
+stderr = """
+Error: spicy_format::parse_error
+
+  × while formatting '<stdin>'
+  ╰─▶ parse error
+   ╭─[2:1]
+ 1 │ 1;
+ 2 │ 1 + 2
+   · ▲
+   · ╰── syntax not understood
+ 3 │ 2;
+   ╰────
+
+"""
+
+stdout = ""
+status.code = 1
