@@ -15,7 +15,7 @@ thiserror = "2.0.17"
 miette = { version = "7.6.0", default-features = false, features = ["derive", "fancy"] }
 rayon = "1.11.0"
 topiary-core = { version = "0.7.1", default-features = false }
-topiary-tree-sitter-facade = { version = "0.7.0", default-features = false }
+topiary-tree-sitter-facade = { version = "0.7.1", default-features = false }
 
 [dev-dependencies]
 assert_cmd = { version = "2.1.1", default-features = false }
