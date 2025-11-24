@@ -1497,9 +1497,9 @@ checksum = "df8b2b54733674ad286d16267dcfc7a71ed5c776e4ac7aa3c3e2561f7c637bf2"
 
 [[package]]
 name = "topiary-core"
-version = "0.7.0"
+version = "0.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0736305f33966955d4299968899b597ed9e3fa0d33190282aecc5a5d4c512101"
+checksum = "acc282976909ccc4429848f82b7a07b65062c611b133292ab438c907b0a5b749"
 dependencies = [
  "futures",
  "itertools",
@@ -1520,9 +1520,9 @@ dependencies = [
 
 [[package]]
 name = "topiary-tree-sitter-facade"
-version = "0.7.0"
+version = "0.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8688ddc26c4a57b252d22df39e695156a264e95b27b649826ca621d98b5c0d3f"
+checksum = "315e5dfad1235699565f50030686aba210f7f131f7a2df90b5e8eb87a341e5e7"
 dependencies = [
  "js-sys",
  "streaming-iterator",
@@ -1535,9 +1535,9 @@ dependencies = [
 
 [[package]]
 name = "topiary-web-tree-sitter-sys"
-version = "0.7.0"
+version = "0.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d18ce9393e713ad58c78be381a4b8ba22de3c8e88e022e54f37ebcfb0a6a931f"
+checksum = "dff2f298f63f83b0ab89267caa78be32b184d497bca9b3cecc8065ccaf2988ca"
 dependencies = [
  "js-sys",
  "wasm-bindgen",
