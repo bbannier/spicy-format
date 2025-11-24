@@ -10,7 +10,7 @@ rust-version = "1.88"
 
 [dependencies]
 tree-sitter-spicy = { git = "https://github.com/bbannier/tree-sitter-spicy" }
-clap = { version = "4.5.51", features = ["std", "derive", "help"], default-features = false }
+clap = { version = "4.5.53", features = ["std", "derive", "help"], default-features = false }
 thiserror = "2.0.17"
 miette = { version = "7.6.0", default-features = false, features = ["derive", "fancy"] }
 rayon = "1.11.0"
