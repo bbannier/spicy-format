@@ -1,3 +1,6 @@
+// With 1.92 this triggers on the fields of `FormatError::Parse` below.
+#![allow(clippy::used_underscore_binding)]
+
 use {
     miette::{Diagnostic, Result, SourceOffset, SourceSpan},
     std::string::FromUtf8Error,
@@ -12,10 +15,10 @@ pub enum FormatError {
     #[error("parse error")]
     Parse {
         #[source_code]
-        src: String,
+        _src: String,
 
         #[label("syntax not understood")]
-        err_span: SourceSpan,
+        _err_span: SourceSpan,
     },
 
     #[error("internal query error")]
@@ -118,8 +121,8 @@ pub fn format(
                         .expect("cannot represent u32 as usize"),
                 );
                 FormatError::Parse {
-                    src: input.to_string(),
-                    err_span: (start.offset(), end.offset() - start.offset()).into(),
+                    _src: input.to_string(),
+                    _err_span: (start.offset(), end.offset() - start.offset()).into(),
                 }
             }
             _ => FormatError::Unknown,
