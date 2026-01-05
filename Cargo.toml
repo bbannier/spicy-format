@@ -14,7 +14,7 @@ clap = { version = "4.5.53", features = ["std", "derive", "help"], default-featu
 thiserror = "2.0.17"
 miette = { version = "7.6.0", default-features = false, features = ["derive", "fancy"] }
 rayon = "1.11.0"
-topiary-core = { version = "0.7.2", default-features = false }
+topiary-core = { version = "0.7.3", default-features = false }
 topiary-tree-sitter-facade = { version = "0.7.1", default-features = false }
 
 [dev-dependencies]
