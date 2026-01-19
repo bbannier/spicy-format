@@ -11,7 +11,7 @@ rust-version = "1.88"
 [dependencies]
 tree-sitter-spicy = { git = "https://github.com/bbannier/tree-sitter-spicy" }
 clap = { version = "4.5.54", features = ["std", "derive", "help"], default-features = false }
-thiserror = "2.0.17"
+thiserror = "2.0.18"
 miette = { version = "7.6.0", default-features = false, features = ["derive", "fancy"] }
 rayon = "1.11.0"
 topiary-core = { version = "0.7.3", default-features = false }
