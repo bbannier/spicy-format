@@ -26,7 +26,7 @@ trycmd = "0.15.11"
 walkdir = "2.5.0"
 
 [build-dependencies]
-vergen-git2 = { version = "1.0.7", default-features = false }
+vergen-git2 = { version = "9.1.0", default-features = false }
 
 [profile.release]
 panic = "abort"
