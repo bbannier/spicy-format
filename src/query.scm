@@ -368,6 +368,7 @@
 (return ("return" @append_space) (_))
 (throw_ "throw" @append_space)
 (unset "unset" @append_space)
+(export_ ("export" @append_space) (_))
 
 (list
   "," @append_spaced_softline
