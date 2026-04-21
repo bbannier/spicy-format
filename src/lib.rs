@@ -34,6 +34,19 @@ pub enum FormatError {
     Unknown,
 }
 
+impl From<FormatterError> for FormatError {
+    fn from(value: FormatterError) -> Self {
+        match value {
+            FormatterError::Query(m, e) => FormatError::Query(match e {
+                None => m,
+                Some(e) => format!("{m}: {e}"),
+            }),
+            FormatterError::Idempotence => FormatError::Idempotency,
+            _ => FormatError::Unknown,
+        }
+    }
+}
+
 const QUERY: &str = include_str!("query.scm");
 
 /// Format Spicy source code.
@@ -65,13 +78,7 @@ pub fn format(
 
     let grammar = topiary_tree_sitter_facade::Language::from(tree_sitter_spicy::LANGUAGE);
 
-    let query = TopiaryQuery::new(&grammar, QUERY).map_err(|e| match e {
-        FormatterError::Query(m, e) => FormatError::Query(match e {
-            None => m,
-            Some(e) => format!("{m}: {e}"),
-        }),
-        _ => FormatError::Unknown,
-    })?;
+    let query = TopiaryQuery::new(&grammar, QUERY).map_err(FormatError::from)?;
 
     let language = {
         topiary_core::Language {
@@ -92,11 +99,6 @@ pub fn format(
         },
     ) {
         Err(match e {
-            FormatterError::Query(m, e) => FormatError::Query(match e {
-                None => m,
-                Some(e) => format!("{m}: {e}"),
-            }),
-            FormatterError::Idempotence => FormatError::Idempotency,
             FormatterError::Parsing(span) => {
                 let start = SourceOffset::from_location(
                     input,
@@ -125,7 +127,7 @@ pub fn format(
                     _err_span: (start.offset(), end.offset() - start.offset()).into(),
                 }
             }
-            _ => FormatError::Unknown,
+            _ => FormatError::from(e),
         })?;
     }
 
