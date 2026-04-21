@@ -1,0 +1,12 @@
+args = "does_not_exist.spicy"
+
+stdout = ""
+stderr = """
+  × while reading input file does_not_exist.spicy
+  ├─▶ I/O error
+  ╰─▶ No such file or directory (os error 2)
+
+Error:   × could not format 1 file(s)
+
+"""
+status.code = 1
