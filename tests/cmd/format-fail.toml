@@ -1,0 +1,18 @@
+args = "-r input.spicy"
+
+stdout = ""
+stderr = """
+spicy_format::parse_error
+
+  × while formatting 'input.spicy'
+  ╰─▶ parse error
+   ╭────
+ 1 │ 123
+   · ─┬
+   ·  ╰── syntax not understood
+   ╰────
+
+Error:   × could not format 1 file(s)
+
+"""
+status.code = 1
