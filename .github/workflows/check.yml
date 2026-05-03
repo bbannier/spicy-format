@@ -34,7 +34,7 @@ jobs:
       - uses: moonrepo/setup-rust@v1
         with:
           components: clippy,rustfmt
-      - uses: j178/prek-action@v2
+      - uses: j178/prek-action@v2.0.2
 
   uv:
     runs-on: ubuntu-latest
