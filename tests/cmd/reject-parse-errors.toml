@@ -7,9 +7,9 @@ stdin = """
 """
 
 stderr = """
-Error: spicy_format::parse_error
+spicy_format::parse_error
 
-  × while formatting '<stdin>'
+  × while formatting '/dev/stdin'
   ╰─▶ parse error
    ╭─[2:1]
  1 │ 1;
@@ -18,6 +18,8 @@ Error: spicy_format::parse_error
    · ╰── syntax not understood
  3 │ 2;
    ╰────
+
+Error:   × could not format 1 file(s)
 
 """
 

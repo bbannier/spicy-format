@@ -10,24 +10,14 @@ $ spicy-format --help
 Usage: 
 
 Arguments:
-  [INPUT_FILES]...
-          if not provided read input from stdin
+  [INPUT_FILES]...  input files to operate on [default: /dev/stdin]
 
 Options:
-  -s, --skip-idempotence
-          skip idempotency check
-
-  -r, --reject-parse-errors
-          reject inputs with parse errors
-
-  -i, --inplace
-          format file in place
-
-  -h, --help
-          Print help (see a summary with '-h')
-
-  -V, --version
-          Print version
+  -s, --skip-idempotence     skip idempotency check
+  -r, --reject-parse-errors  reject inputs with parse errors
+  -i, --inplace              format file in place
+  -h, --help                 Print help
+  -V, --version              Print version
 
 ```
 

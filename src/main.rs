@@ -3,7 +3,6 @@ use {
     miette::{Context, Diagnostic, Result, ensure},
     rayon::iter::{IntoParallelRefIterator, ParallelIterator},
     spicy_format::format,
-    std::{io::Read, path::PathBuf},
     thiserror::Error,
 };
 
@@ -12,9 +11,9 @@ use {
 struct Args {
     #[clap(
         help = "input files to operate on",
-        long_help = "if not provided read input from stdin"
+        default_values_t = ["/dev/stdin".to_string()],
     )]
-    input_files: Vec<PathBuf>,
+    input_files: Vec<String>,
 
     #[clap(short, long, help = "skip idempotency check")]
     skip_idempotence: bool,
@@ -50,66 +49,49 @@ fn main() -> Result<()> {
             .wrap_err(format!("while formatting '{source}'"))
     };
 
-    if args.input_files.is_empty() {
-        let stdin = std::io::stdin();
-        let mut buf = String::new();
-        stdin
-            .lock()
-            .read_to_string(&mut buf)
-            .map_err(Error::Io)
-            .wrap_err("while reading input from stdin")?;
-
-        // When printing the result do not insert extra newlines.
-        let formatted = format(&buf, "<stdin>")?;
-        print!("{formatted}");
-    } else {
-        let failed = args
-            .input_files
-            .par_iter()
-            .filter_map(|input_file| {
-                let source = match std::fs::read_to_string(input_file)
-                    .map_err(Error::Io)
-                    .wrap_err(format!("while reading input file {}", input_file.display()))
-                {
-                    Err(e) => {
-                        eprintln!("{e:?}");
-                        return Some(input_file);
-                    }
-                    Ok(s) => s,
-                };
-
-                let formatted = match format(&source, &input_file.display().to_string()) {
-                    Ok(f) => f,
-                    Err(e) => {
-                        eprintln!("{e:?}");
-                        return Some(input_file);
-                    }
-                };
-
-                if args.inplace {
-                    // Only write output file if we made any changes.
-                    if source != formatted
-                        && let Err(e) = std::fs::write(input_file, formatted)
-                            .map_err(Error::Io)
-                            .wrap_err(format!(
-                                "while writing output file {}",
-                                input_file.display()
-                            ))
-                    {
-                        eprintln!("{e:?}");
-                        return Some(input_file);
-                    }
-                } else {
-                    // When printing the result do not insert extra newlines.
-                    print!("{formatted}");
+    let failed = args
+        .input_files
+        .par_iter()
+        .filter_map(|input_file| {
+            let source = match std::fs::read_to_string(input_file)
+                .map_err(Error::Io)
+                .wrap_err(format!("while reading input file {input_file}"))
+            {
+                Err(e) => {
+                    eprintln!("{e:?}");
+                    return Some(input_file);
                 }
+                Ok(s) => s,
+            };
 
-                None
-            })
-            .count();
+            let formatted = match format(&source, input_file) {
+                Ok(f) => f,
+                Err(e) => {
+                    eprintln!("{e:?}");
+                    return Some(input_file);
+                }
+            };
 
-        ensure!(failed == 0, "could not format {failed} file(s)");
-    }
+            if args.inplace {
+                // Only write output file if we made any changes.
+                if source != formatted
+                    && let Err(e) = std::fs::write(input_file, formatted)
+                        .map_err(Error::Io)
+                        .wrap_err(format!("while writing output file {input_file}"))
+                {
+                    eprintln!("{e:?}");
+                    return Some(input_file);
+                }
+            } else {
+                // When printing the result do not insert extra newlines.
+                print!("{formatted}");
+            }
+
+            None
+        })
+        .count();
+
+    ensure!(failed == 0, "could not format {failed} file(s)");
 
     Ok(())
 }
