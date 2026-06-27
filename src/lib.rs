@@ -15,14 +15,11 @@ pub enum FormatError {
     #[error("parse error")]
     Parse {
         #[source_code]
-        _src: String,
+        content: String,
 
         #[label("syntax not understood")]
-        _err_span: SourceSpan,
+        span: SourceSpan,
     },
-
-    #[error("internal query error")]
-    Query(#[help] String),
 
     #[error("idempotency violated")]
     Idempotency,
@@ -37,11 +34,37 @@ pub enum FormatError {
 impl From<FormatterError> for FormatError {
     fn from(value: FormatterError) -> Self {
         match value {
-            FormatterError::Query(m, e) => FormatError::Query(match e {
-                None => m,
-                Some(e) => format!("{m}: {e}"),
-            }),
             FormatterError::Idempotence => FormatError::Idempotency,
+            FormatterError::Parsing(span) => {
+                let input = span.content.as_ref().map_or_else(|| "", String::as_str);
+
+                let start = SourceOffset::from_location(
+                    input,
+                    span.start_point()
+                        .row()
+                        .try_into()
+                        .expect("cannot represent u32 as usize"),
+                    span.start_point()
+                        .column()
+                        .try_into()
+                        .expect("cannot represent u32 as usize"),
+                );
+                let end = SourceOffset::from_location(
+                    input,
+                    span.end_point()
+                        .row()
+                        .try_into()
+                        .expect("cannot represent u32 as usize"),
+                    span.end_point()
+                        .column()
+                        .try_into()
+                        .expect("cannot represent u32 as usize"),
+                );
+                FormatError::Parse {
+                    content: input.to_string(),
+                    span: (start.offset(), end.offset() - start.offset()).into(),
+                }
+            }
             _ => FormatError::Unknown,
         }
     }
@@ -88,48 +111,16 @@ pub fn format(
     });
 
     let mut output = Vec::new();
-
-    if let Err(e) = topiary_core::formatter(
-        &mut input.as_bytes(),
+    topiary_core::formatter_str(
+        input,
         &mut output,
         &LANGUAGE,
         Operation::Format {
             skip_idempotence,
             tolerate_parsing_errors,
         },
-    ) {
-        Err(match e {
-            FormatterError::Parsing(span) => {
-                let start = SourceOffset::from_location(
-                    input,
-                    span.start_point()
-                        .row()
-                        .try_into()
-                        .expect("cannot represent u32 as usize"),
-                    span.start_point()
-                        .column()
-                        .try_into()
-                        .expect("cannot represent u32 as usize"),
-                );
-                let end = SourceOffset::from_location(
-                    input,
-                    span.end_point()
-                        .row()
-                        .try_into()
-                        .expect("cannot represent u32 as usize"),
-                    span.end_point()
-                        .column()
-                        .try_into()
-                        .expect("cannot represent u32 as usize"),
-                );
-                FormatError::Parse {
-                    _src: input.to_string(),
-                    _err_span: (start.offset(), end.offset() - start.offset()).into(),
-                }
-            }
-            _ => FormatError::from(e),
-        })?;
-    }
+    )
+    .map_err(FormatError::from)?;
 
     let output = String::from_utf8(output).map_err(FormatError::UTF8)?;
 
