@@ -127,9 +127,9 @@ pub fn format(
     // Final cleanup of result. If we received an input not ending in a newline, also return an
     // output without newline. We do not want to force a newline since we e.g., could be formatting
     // input received from an editor and do not want to insert additional newlines.
-    if input.ends_with('\n') {
-        Ok(output)
+    Ok(if input.ends_with('\n') {
+        output
     } else {
-        Ok(output.trim_end().into())
-    }
+        output.trim_end().into()
+    })
 }
