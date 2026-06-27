@@ -3,7 +3,7 @@
 
 use {
     miette::{Diagnostic, Result, SourceOffset, SourceSpan},
-    std::string::FromUtf8Error,
+    std::{string::FromUtf8Error, sync::LazyLock},
     thiserror::Error,
     topiary_core::{FormatterError, Operation, TopiaryQuery},
 };
@@ -74,25 +74,25 @@ pub fn format(
     skip_idempotence: bool,
     tolerate_parsing_errors: bool,
 ) -> Result<String> {
-    let mut output = Vec::new();
+    static LANGUAGE: LazyLock<topiary_core::Language> = LazyLock::new(|| {
+        let grammar = topiary_tree_sitter_facade::Language::from(tree_sitter_spicy::LANGUAGE);
 
-    let grammar = topiary_tree_sitter_facade::Language::from(tree_sitter_spicy::LANGUAGE);
-
-    let query = TopiaryQuery::new(&grammar, QUERY).map_err(FormatError::from)?;
-
-    let language = {
         topiary_core::Language {
             name: "spicy".to_string(),
             indent: Some("    ".to_string()),
+            query: TopiaryQuery::new(&grammar, QUERY)
+                .map_err(FormatError::from)
+                .expect("invalid grammar"),
             grammar,
-            query,
         }
-    };
+    });
+
+    let mut output = Vec::new();
 
     if let Err(e) = topiary_core::formatter(
         &mut input.as_bytes(),
         &mut output,
-        &language,
+        &LANGUAGE,
         Operation::Format {
             skip_idempotence,
             tolerate_parsing_errors,
