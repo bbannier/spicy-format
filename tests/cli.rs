@@ -1,7 +1,3 @@
-#![allow(clippy::unwrap_used)]
-
-use serde::Deserialize;
-use spicy_format::{FormatError, LANGUAGE, QUERY};
 use std::{
     collections::HashMap,
     path::{Path, PathBuf},
@@ -12,6 +8,8 @@ use assert_cmd::cargo;
 use filetime::FileTime;
 use miette::{NamedSource, miette};
 use rayon::prelude::*;
+use serde::Deserialize;
+use spicy_format::{LANGUAGE, QUERY};
 use tempfile::NamedTempFile;
 
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
@@ -36,41 +34,34 @@ fn do_not_touch_unmodified() -> Result<()> {
 }
 
 #[test]
-fn coverage() {
+fn coverage() -> miette::Result<()> {
     #[derive(Deserialize)]
     struct Cmd {
-        stdin: Option<String>,
+        stdout: Option<String>,
     }
 
-    let files: Vec<_> = std::fs::read_dir("tests/cmd/")
-        .unwrap()
-        .filter_map(|e| {
-            let e = e.ok()?;
-            if !e.path().is_file() {
+    let sources: Vec<_> = std::fs::read_dir("tests/cmd/")
+        .expect("could not read test baselines")
+        .filter_map(|entry| {
+            let path = entry.ok()?.path();
+            if !path.is_file() {
                 return None;
             }
-            Some(e)
+
+            let code = std::fs::read_to_string(&path).expect("unreabable file");
+
+            // The stdout of tests should either be empty or contain valid, parseable code.
+            toml::from_str::<Cmd>(&code)
+                .expect("unparsable input")
+                .stdout
         })
         .collect();
 
-    let sources = files
-        .iter()
-        .filter_map(|f| {
-            // Filter out files containing unparsable code.
-            if f.path().ends_with("reject-parse-errors.toml") {
-                return None;
-            }
-
-            let x = std::fs::read_to_string(f.path()).unwrap();
-
-            toml::from_str::<Cmd>(&x).unwrap().stdin
-        })
-        .collect::<Vec<String>>();
     let source = sources.join("\n");
 
-    check_coverage(&source).unwrap();
+    check_coverage(&source)?;
 
-    // assert!(false);
+    Ok(())
 }
 
 #[test]
@@ -179,7 +170,7 @@ where
 /// Check coverage of the builtin query against the provided source code.
 pub fn check_coverage(input: &str) -> miette::Result<()> {
     let cov = topiary_core::check_query_coverage(input, &LANGUAGE.query, &LANGUAGE.grammar)
-        .map_err(FormatError::from)?;
+        .expect("could not collect coverage");
 
     let query = NamedSource::new("query.scm", QUERY).with_language("scheme");
 
