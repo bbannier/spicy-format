@@ -6,7 +6,7 @@ repos:
     hooks:
       - id: fmt
       - id: clippy
-        args: [--all, --all-features]
+        args: [--all, --all-features, --all-targets]
       - id: cargo-check
   - repo: https://github.com/jorisroovers/gitlint
     rev: acc9d9de6369b76d22cb4167029d2035e8730b98 # frozen: v0.19.1

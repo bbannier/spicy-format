@@ -42,7 +42,11 @@ where
         .stdout(Stdio::piped())
         .output()?;
 
-    assert!(output.status.success(), "could not format {path:?}");
+    assert!(
+        output.status.success(),
+        "could not format {}",
+        path.display()
+    );
     let output = String::from_utf8(output.stdout)?;
 
     Ok(output)
@@ -96,7 +100,7 @@ fn corpus_external() -> miette::Result<()> {
                 return None;
             }
 
-            match format(&f) {
+            match format(f) {
                 Err(_) => Some((f.to_string(), false)),
                 Ok(_) => Some((f.to_string(), true)),
             }
