@@ -1,5 +1,6 @@
 use std::path::Path;
 
+#[allow(clippy::unwrap_used)]
 fn main() {
     let is_git_repo = Path::new(".git").exists();
     if is_git_repo {

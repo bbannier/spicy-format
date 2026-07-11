@@ -41,5 +41,6 @@ inherits = "release"
 
 [lints.clippy]
 pedantic = { level = "deny", priority = -1 }
+unwrap_used = "deny"
 missing_errors_doc = "allow"
 missing_panics_doc = "allow"
