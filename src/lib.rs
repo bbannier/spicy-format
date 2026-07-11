@@ -70,7 +70,7 @@ impl From<FormatterError> for FormatError {
     }
 }
 
-const QUERY: &str = include_str!("query.scm");
+pub const QUERY: &str = include_str!("query.scm");
 
 /// Format Spicy source code.
 ///
@@ -97,19 +97,6 @@ pub fn format(
     skip_idempotence: bool,
     tolerate_parsing_errors: bool,
 ) -> Result<String> {
-    static LANGUAGE: LazyLock<topiary_core::Language> = LazyLock::new(|| {
-        let grammar = topiary_tree_sitter_facade::Language::from(tree_sitter_spicy::LANGUAGE);
-
-        topiary_core::Language {
-            name: "spicy".to_string(),
-            indent: Some("    ".to_string()),
-            query: TopiaryQuery::new(&grammar, QUERY)
-                .map_err(FormatError::from)
-                .expect("invalid grammar"),
-            grammar,
-        }
-    });
-
     let mut output = Vec::new();
     topiary_core::formatter_str(
         input,
@@ -133,3 +120,16 @@ pub fn format(
         output.trim_end().into()
     })
 }
+
+pub static LANGUAGE: LazyLock<topiary_core::Language> = LazyLock::new(|| {
+    let grammar = topiary_tree_sitter_facade::Language::from(tree_sitter_spicy::LANGUAGE);
+
+    topiary_core::Language {
+        name: "spicy".to_string(),
+        indent: Some("    ".to_string()),
+        query: TopiaryQuery::new(&grammar, QUERY)
+            .map_err(FormatError::from)
+            .expect("invalid grammar"),
+        grammar,
+    }
+});

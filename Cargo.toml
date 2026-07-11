@@ -21,7 +21,9 @@ topiary-tree-sitter-facade = { version = "0.7.1", default-features = false }
 assert_cmd = { version = "2.2.2", default-features = false }
 filetime = { version = "0.2.29", default-features = false }
 pretty_assertions = "1.4.1"
+serde = { version = "1.0.228", features = ["derive"] }
 tempfile = { version = "3.27.0", default-features = false }
+toml = "1.1.2"
 trycmd = "1.2.0"
 walkdir = "2.5.0"
 

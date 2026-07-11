@@ -1,3 +1,7 @@
+#![allow(clippy::unwrap_used)]
+
+use serde::Deserialize;
+use spicy_format::{FormatError, LANGUAGE, QUERY};
 use std::{
     collections::HashMap,
     path::{Path, PathBuf},
@@ -6,7 +10,7 @@ use std::{
 
 use assert_cmd::cargo;
 use filetime::FileTime;
-use miette::miette;
+use miette::{NamedSource, miette};
 use rayon::prelude::*;
 use tempfile::NamedTempFile;
 
@@ -30,26 +34,43 @@ fn do_not_touch_unmodified() -> Result<()> {
 
     Ok(())
 }
-/// Helper to format an input file via the CLI.
-fn format<P>(path: P) -> Result<String>
-where
-    P: Into<PathBuf>,
-{
-    let path = path.into();
-    let output = Command::new(cargo::cargo_bin!())
-        .arg("--reject-parse-errors")
-        .arg(&path)
-        .stdout(Stdio::piped())
-        .output()?;
 
-    assert!(
-        output.status.success(),
-        "could not format {}",
-        path.display()
-    );
-    let output = String::from_utf8(output.stdout)?;
+#[test]
+fn coverage() {
+    #[derive(Deserialize)]
+    struct Cmd {
+        stdin: Option<String>,
+    }
 
-    Ok(output)
+    let files: Vec<_> = std::fs::read_dir("tests/cmd/")
+        .unwrap()
+        .filter_map(|e| {
+            let e = e.ok()?;
+            if !e.path().is_file() {
+                return None;
+            }
+            Some(e)
+        })
+        .collect();
+
+    let sources = files
+        .iter()
+        .filter_map(|f| {
+            // Filter out files containing unparsable code.
+            if f.path().ends_with("reject-parse-errors.toml") {
+                return None;
+            }
+
+            let x = std::fs::read_to_string(f.path()).unwrap();
+
+            toml::from_str::<Cmd>(&x).unwrap().stdin
+        })
+        .collect::<Vec<String>>();
+    let source = sources.join("\n");
+
+    check_coverage(&source).unwrap();
+
+    // assert!(false);
 }
 
 #[test]
@@ -131,4 +152,40 @@ fn cli_tests() {
         .case("tests/cmd/*.toml")
         .case("README.md")
         .default_bin_name("spicy-format");
+}
+
+/// Helper to format an input file via the CLI.
+fn format<P>(path: P) -> Result<String>
+where
+    P: Into<PathBuf>,
+{
+    let path = path.into();
+    let output = Command::new(cargo::cargo_bin!())
+        .arg("--reject-parse-errors")
+        .arg(&path)
+        .stdout(Stdio::piped())
+        .output()?;
+
+    assert!(
+        output.status.success(),
+        "could not format {}",
+        path.display()
+    );
+    let output = String::from_utf8(output.stdout)?;
+
+    Ok(output)
+}
+
+/// Check coverage of the builtin query against the provided source code.
+pub fn check_coverage(input: &str) -> miette::Result<()> {
+    let cov = topiary_core::check_query_coverage(input, &LANGUAGE.query, &LANGUAGE.grammar)
+        .map_err(FormatError::from)?;
+
+    let query = NamedSource::new("query.scm", QUERY).with_language("scheme");
+
+    if cov.missing_patterns.is_empty() {
+        Ok(())
+    } else {
+        Err(miette::Report::new(cov).with_source_code(query))
+    }
 }

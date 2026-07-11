@@ -18,6 +18,9 @@ assert-exception 1 : "foo";
 
 export Type;
 export foo::Type;
+
+add my_set[elem];
+delete my_set[elem];
 """
 
 stdout = """
@@ -42,6 +45,9 @@ assert-exception 1 : "foo";
 
 export Type;
 export foo::Type;
+
+add my_set[elem];
+delete my_set[elem];
 """
 
 stderr = ""
