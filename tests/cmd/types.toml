@@ -1,0 +1,26 @@
+stdin = """
+# Long parameterized type with explicit breaks.
+type T = tuple<vector<uint64>,
+vector<uint64>, vector<uint64>, vector<uint64>, vector<uint64>, vector<uint64>>;
+
+# Parameterized type without explicit breaks.
+type U = tuple<uint64, uint64>;
+"""
+
+stdout = """
+# Long parameterized type with explicit breaks.
+type T = tuple<
+    vector<uint64>,
+    vector<uint64>,
+    vector<uint64>,
+    vector<uint64>,
+    vector<uint64>,
+    vector<uint64>
+>;
+
+# Parameterized type without explicit breaks.
+type U = tuple<uint64, uint64>;
+"""
+
+stderr = ""
+status.code = 0
