@@ -34,6 +34,11 @@ function f() {}
 
 # Declaration with templated arg type. This checks that we always leave a space between `>` and `=`.
 public function file_data_in(data: bytes, fid: optional<string> = Null): void &cxxname="zeek::spicy::rt::file_data_in";
+
+# Very long argument with explicit breaks.
+function foo(x0: vector<uint64>, x1: vector<uint64>, x2: vector<uint64>, x3: vector<uint64>,
+             x4: vector<uint64>, x5: vector<uint64>, x6: vector<uint64>, x7: vector<uint64>,
+             x8: vector<uint64>, x9: vector<uint64>) {}
 """
 
 stdout = """
@@ -78,6 +83,20 @@ function f() {}
 
 # Declaration with templated arg type. This checks that we always leave a space between `>` and `=`.
 public function file_data_in(data: bytes, fid: optional<string> = Null): void &cxxname="zeek::spicy::rt::file_data_in";
+
+# Very long argument with explicit breaks.
+function foo(
+    x0: vector<uint64>,
+    x1: vector<uint64>,
+    x2: vector<uint64>,
+    x3: vector<uint64>,
+    x4: vector<uint64>,
+    x5: vector<uint64>,
+    x6: vector<uint64>,
+    x7: vector<uint64>,
+    x8: vector<uint64>,
+    x9: vector<uint64>
+) {}
 """
 
 stderr = ""

@@ -329,6 +329,18 @@
 
 (function_decl "function" @append_space)
 
+(function_decl
+  "(" @append_begin_scope @append_begin_measuring_scope
+  ")" @prepend_end_measuring_scope @prepend_end_scope
+  (#scope_id! "function_args")
+)
+(function_decl
+  "(" @append_empty_scoped_softline @append_indent_start
+  ((function_arg) . "," @append_spaced_scoped_softline)+
+  ")" @prepend_indent_end @prepend_empty_scoped_softline
+  (#scope_id! "function_args")
+)
+
 ; Force newlines after var_decl in various block-like contexts.
 (block
   (var_decl) @append_hardline
