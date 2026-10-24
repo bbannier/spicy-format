@@ -40,7 +40,7 @@ fn coverage() -> miette::Result<()> {
         stdout: Option<String>,
     }
 
-    let sources: Vec<_> = std::fs::read_dir("tests/cmd/")
+    let source: String = std::fs::read_dir("tests/cmd/")
         .expect("could not read test baselines")
         .filter_map(|entry| {
             let path = entry.ok()?.path();
@@ -48,20 +48,25 @@ fn coverage() -> miette::Result<()> {
                 return None;
             }
 
-            let code = std::fs::read_to_string(&path).expect("unreabable file");
+            let code = std::fs::read(&path).expect("unreabable file");
 
             // The stdout of tests should either be empty or contain valid, parseable code.
-            toml::from_str::<Cmd>(&code)
+            toml::from_slice::<Cmd>(&code)
                 .expect("unparsable input")
                 .stdout
         })
         .collect();
 
-    let source = sources.join("\n");
+    let cov = topiary_core::check_query_coverage(&source, &LANGUAGE.query, &LANGUAGE.grammar)
+        .expect("could not collect coverage");
 
-    check_coverage(&source)?;
+    let query = NamedSource::new("query.scm", QUERY).with_language("scheme");
 
-    Ok(())
+    if cov.missing_patterns.is_empty() {
+        Ok(())
+    } else {
+        Err(miette::Report::new(cov).with_source_code(query))
+    }
 }
 
 #[test]
@@ -137,14 +142,6 @@ fn corpus_external() -> miette::Result<()> {
     }
 }
 
-#[test]
-fn cli_tests() {
-    trycmd::TestCases::new()
-        .case("tests/cmd/*.toml")
-        .case("README.md")
-        .default_bin_name("spicy-format");
-}
-
 /// Helper to format an input file via the CLI.
 fn format<P>(path: P) -> Result<String>
 where
@@ -167,16 +164,10 @@ where
     Ok(output)
 }
 
-/// Check coverage of the builtin query against the provided source code.
-pub fn check_coverage(input: &str) -> miette::Result<()> {
-    let cov = topiary_core::check_query_coverage(input, &LANGUAGE.query, &LANGUAGE.grammar)
-        .expect("could not collect coverage");
-
-    let query = NamedSource::new("query.scm", QUERY).with_language("scheme");
-
-    if cov.missing_patterns.is_empty() {
-        Ok(())
-    } else {
-        Err(miette::Report::new(cov).with_source_code(query))
-    }
+#[test]
+fn cli_tests() {
+    trycmd::TestCases::new()
+        .case("tests/cmd/*.toml")
+        .case("README.md")
+        .default_bin_name("spicy-format");
 }
