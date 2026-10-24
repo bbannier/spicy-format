@@ -29,11 +29,9 @@ repos:
         exclude: ^tests/Baseline|^doc/autogen|^doc/_static
       - id: check-yaml
       - id: check-added-large-files
-  - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: f12edd9c7be1c20cfa42420fd0e6df71e42b51ea # frozen: v4.0.0-alpha.8
+  - repo: https://github.com/google/yamlfmt
+    rev: v0.19.0
     hooks:
-      - id: prettier
-        stages: [pre-commit]
-        exclude: ^README.md
+      - id: yamlfmt
 
 exclude: .github/workflows/release.yml|tests/cmd/do_not_touch_unmodified.in/.*
