@@ -44,50 +44,38 @@ fn main() -> Result<()> {
         )
     }))?;
 
-    let format = |code: &str, source: &str| {
-        format(code, args.skip_idempotence, !args.reject_parse_errors)
-            .wrap_err(format!("while formatting '{source}'"))
-    };
-
     let failed = args
         .input_files
         .par_iter()
-        .filter_map(|input_file| {
-            let source = match std::fs::read_to_string(input_file)
+        .map(|input_file| -> Result<()> {
+            let source = std::fs::read_to_string(input_file)
                 .map_err(Error::Io)
-                .wrap_err(format!("while reading input file {input_file}"))
-            {
-                Err(e) => {
-                    eprintln!("{e:?}");
-                    return Some(input_file);
-                }
-                Ok(s) => s,
-            };
+                .wrap_err(format!("while reading input file {input_file}"))?;
 
-            let formatted = match format(&source, input_file) {
-                Ok(f) => f,
-                Err(e) => {
-                    eprintln!("{e:?}");
-                    return Some(input_file);
-                }
-            };
+            let formatted = format(&source, args.skip_idempotence, !args.reject_parse_errors)
+                .wrap_err(format!("while formatting '{input_file}'"))?;
 
             if args.inplace {
                 // Only write output file if we made any changes.
-                if source != formatted
-                    && let Err(e) = std::fs::write(input_file, formatted)
+                if source != formatted {
+                    std::fs::write(input_file, formatted)
                         .map_err(Error::Io)
-                        .wrap_err(format!("while writing output file {input_file}"))
-                {
-                    eprintln!("{e:?}");
-                    return Some(input_file);
+                        .wrap_err(format!("while writing output file {input_file}"))?;
                 }
             } else {
                 // When printing the result do not insert extra newlines.
                 print!("{formatted}");
             }
 
-            None
+            Ok(())
+        })
+        .filter(|f| {
+            if let Err(e) = f {
+                eprintln!("{e:?}");
+                true
+            } else {
+                false
+            }
         })
         .count();
 
