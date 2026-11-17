@@ -1,8 +1,5 @@
-// With 1.92 this triggers on the fields of `FormatError::Parse` below.
-#![allow(clippy::used_underscore_binding)]
-
 use {
-    miette::{Diagnostic, Result, SourceOffset, SourceSpan},
+    miette::{Diagnostic, Result},
     std::{string::FromUtf8Error, sync::LazyLock},
     thiserror::Error,
     topiary_core::{FormatterError, Operation, TopiaryQuery},
@@ -11,15 +8,8 @@ use {
 #[derive(Error, Debug, Diagnostic)]
 #[error("format error")]
 pub enum FormatError {
-    #[diagnostic(code(spicy_format::parse_error))]
     #[error("parse error")]
-    Parse {
-        #[source_code]
-        content: String,
-
-        #[label("syntax not understood")]
-        span: SourceSpan,
-    },
+    Parse,
 
     #[error("idempotency violated")]
     Idempotency,
@@ -35,36 +25,7 @@ impl From<FormatterError> for FormatError {
     fn from(value: FormatterError) -> Self {
         match value {
             FormatterError::Idempotence => FormatError::Idempotency,
-            FormatterError::Parsing(span) => {
-                let input = span.content.as_ref().map_or_else(|| "", String::as_str);
-
-                let start = SourceOffset::from_location(
-                    input,
-                    span.start_point()
-                        .row()
-                        .try_into()
-                        .expect("cannot represent u32 as usize"),
-                    span.start_point()
-                        .column()
-                        .try_into()
-                        .expect("cannot represent u32 as usize"),
-                );
-                let end = SourceOffset::from_location(
-                    input,
-                    span.end_point()
-                        .row()
-                        .try_into()
-                        .expect("cannot represent u32 as usize"),
-                    span.end_point()
-                        .column()
-                        .try_into()
-                        .expect("cannot represent u32 as usize"),
-                );
-                FormatError::Parse {
-                    content: input.to_string(),
-                    span: (start.offset(), end.offset() - start.offset()).into(),
-                }
-            }
+            FormatterError::Parsing => FormatError::Parse,
             _ => FormatError::Unknown,
         }
     }
@@ -105,9 +66,11 @@ pub fn format(
         Operation::Format {
             skip_idempotence,
             tolerate_parsing_errors,
+            skip_stage: None,
         },
+        None,
     )
-    .map_err(FormatError::from)?;
+    .map_err(|e| FormatError::from(e.into_current_context()))?;
 
     let output = String::from_utf8(output).map_err(FormatError::UTF8)?;
 
@@ -127,9 +90,8 @@ pub static LANGUAGE: LazyLock<topiary_core::Language> = LazyLock::new(|| {
     topiary_core::Language {
         name: "spicy".to_string(),
         indent: Some("    ".to_string()),
-        query: TopiaryQuery::new(&grammar, QUERY)
-            .map_err(FormatError::from)
-            .expect("invalid grammar"),
+        formatting_query: TopiaryQuery::new(&grammar, QUERY).expect("invalid grammar"),
+        injection_query: None,
         grammar,
     }
 });
