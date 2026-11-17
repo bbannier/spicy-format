@@ -1417,6 +1417,7 @@ version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "958195c18d04f21aefbb0961313d11328f197c00883cbf6023a14d119b19818f"
 dependencies = [
+ "log",
  "miette",
  "pretty_assertions",
  "prettydiff",

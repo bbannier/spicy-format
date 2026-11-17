@@ -57,8 +57,9 @@ fn coverage() -> miette::Result<()> {
         })
         .collect();
 
-    let cov = topiary_core::check_query_coverage(&source, &LANGUAGE.query, &LANGUAGE.grammar)
-        .expect("could not collect coverage");
+    let cov =
+        topiary_core::check_query_coverage(&source, &LANGUAGE.formatting_query, &LANGUAGE.grammar)
+            .expect("could not collect coverage");
 
     let query = NamedSource::new("query.scm", QUERY).with_language("scheme");
 

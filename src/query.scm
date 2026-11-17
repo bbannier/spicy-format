@@ -381,12 +381,24 @@
 (
   (statement
     (block)? @do_nothing
-  )
+  ) @append_hardline
   .
   (comment)? @do_nothing
-) @append_hardline
+)
 
 (statement (_) ";" @prepend_antispace)
+
+; Force newlines between consecutive statements at module/block level.
+(module
+  (statement) @append_hardline
+  .
+  (statement)
+)
+(block
+  (statement) @append_hardline
+  .
+  (statement)
+)
 
 (print ("print" @append_space) (_))
 (return ("return" @append_space) (_))
